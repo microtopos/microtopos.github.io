@@ -201,8 +201,8 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
   <div class="login-card">
     <div class="login-logo">🌳 Parques</div>
     <div class="login-sub">Mejorada del Campo · Revisiones</div>
-    <div class="field"><label>Email</label>
-      <input id="lu" type="email" placeholder="correo@ejemplo.com" autocomplete="email" autocapitalize="none" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="field"><label>Usuario</label>
+      <input id="lu" type="text" placeholder="tu.usuario" autocomplete="username" autocapitalize="none" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <div class="field"><label>Contraseña</label>
       <input id="lp" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
@@ -269,8 +269,8 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
       <div class="sec-lbl">Nuevo usuario</div>
       <div style="padding:0 .75rem .75rem">
         <div class="field"><label>Nombre completo</label><input id="nu-n" type="text" placeholder="Ana García"></div>
-        <div class="field"><label>Email</label><input id="nu-u" type="email" placeholder="ana@mejorada.es" autocapitalize="none"></div>
-        <div class="field"><label>Contraseña</label><input id="nu-p" type="password" placeholder="mínimo 6 caracteres"></div>
+        <div class="field"><label>Usuario (login)</label><input id="nu-u" type="text" placeholder="ana.garcia" autocapitalize="none"></div>
+        <div class="field"><label>Contraseña</label><input id="nu-p" type="password" placeholder="mínimo 4 caracteres"></div>
         <div class="field"><label>Rol</label>
           <select id="nu-r"><option value="revisor">Revisor</option><option value="coordinador">Coordinador</option></select>
         </div>
@@ -486,8 +486,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 
 <script>
 const SUPABASE_URL='https://kiokyuxpyockyixjlrfa.supabase.co';
-const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtpb2t5dXhweW9ja3lpeGpscmZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NDczOTksImV4cCI6MjA5NDEyMzM5OX0.ZjsSBr8FjG5jsf1nRFMH6lA2xhAJk8Z4VYWFvtr7aVg';
-let _sessionToken=null; // JWT de la sesión activa
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtpb2t5dXhweW9ja3lpeGpscmZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NDczOTksImV4cCI6MjA5NDEyMzM5OX0.ZjsSBr8FjG5jsf1nRFMH6lA2xhAJk8Z4VYWFvtr7aVg';
 
 let PARQUES=[]; // Poblado dinámicamente desde Supabase
 
@@ -495,11 +494,10 @@ let currentUser=null,allRev=[],filtroActivo='todos',fichaData={},fichaReturn='re
 
 async function sb(path,opts={}){
   const isPatch=opts.method==='PATCH';
-  const token=_sessionToken||SUPABASE_ANON_KEY;
   const r=await fetch(`${SUPABASE_URL}/rest/v1/${path}`,{
     headers:{
-      'apikey':SUPABASE_ANON_KEY,
-      'Authorization':`Bearer ${token}`,
+      'apikey':SUPABASE_KEY,
+      'Authorization':`Bearer ${SUPABASE_KEY}`,
       'Content-Type':'application/json',
       'Prefer':opts.prefer||'',
       ...(isPatch?{'X-HTTP-Method-Override':'PATCH'}:{})
@@ -514,40 +512,6 @@ async function sb(path,opts={}){
   return JSON.parse(txt);
 }
 
-// ── SUPABASE AUTH HELPERS ──────────────────────────────
-async function authSignIn(email, password){
-  const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{
-    method:'POST',
-    headers:{'apikey':SUPABASE_ANON_KEY,'Content-Type':'application/json'},
-    body:JSON.stringify({email,password})
-  });
-  const data=await r.json();
-  if(!r.ok) throw new Error(data.error_description||data.msg||'Error de autenticación');
-  return data; // {access_token, refresh_token, expires_in, user}
-}
-
-async function authSignOut(){
-  if(!_sessionToken) return;
-  await fetch(`${SUPABASE_URL}/auth/v1/logout`,{
-    method:'POST',
-    headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${_sessionToken}`}
-  });
-  _sessionToken=null;
-}
-
-async function authCreateUser(email, password){
-  // Usar el service role key para crear usuarios (solo disponible server-side normalmente)
-  // En su lugar usamos la Admin API via invitación, o signup directo
-  const r=await fetch(`${SUPABASE_URL}/auth/v1/signup`,{
-    method:'POST',
-    headers:{'apikey':SUPABASE_ANON_KEY,'Content-Type':'application/json'},
-    body:JSON.stringify({email,password})
-  });
-  const data=await r.json();
-  if(!r.ok) throw new Error(data.error_description||data.msg||'Error creando usuario');
-  return data;
-}
-
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
 function loader(v){document.getElementById('loader').classList.toggle('show',v)}
 let _tt;
@@ -556,36 +520,29 @@ function fmtF(f){if(!f)return'—';return new Date(f+'T12:00:00').toLocaleDateSt
 function parqueOpts(){return'<option value="">Selecciona un parque...</option>'+PARQUES.map(p=>`<option value="${p.replace(/"/g,'&quot;')}">${p}</option>`).join('')}
 
 // ── HASH SHA-256 (Web Crypto API, disponible en todos los navegadores modernos) ──
+async function sha256(text){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
 
 async function doLogin(){
-  const email=document.getElementById('lu').value.trim().toLowerCase();
-  const password=document.getElementById('lp').value;
+  const u=document.getElementById('lu').value.trim().toLowerCase();
+  const p=document.getElementById('lp').value;
   const err=document.getElementById('lerr');
   const btn=document.getElementById('btn-login');
   err.style.display='none';
-  if(!email||!password){err.textContent='Introduce email y contraseña';err.style.display='block';return;}
+  if(!u||!p){err.textContent='Introduce usuario y contraseña';err.style.display='block';return;}
   btn.disabled=true;btn.textContent='Entrando...';loader(true);
   try{
-    // 1. Autenticar con Supabase Auth
-    const session=await authSignIn(email, password);
-    _sessionToken=session.access_token;
-
-    // 2. Cargar perfil (nombre + rol) desde tabla perfiles
-    const perfiles=await sb(`perfiles?id=eq.${session.user.id}&select=*`);
-    if(!perfiles?.length) throw new Error('Perfil no encontrado. Contacta con el administrador.');
-    const perfil=perfiles[0];
-
-    currentUser={id:session.user.id, nombre:perfil.nombre, email, rol:perfil.rol};
-    // Guardar sesión completa para restaurar al recargar
-    localStorage.setItem('pu',JSON.stringify({...currentUser, access_token:session.access_token}));
+    const rows=await sb(`usuarios?usuario=eq.${encodeURIComponent(u)}&select=*`);
+    if(!rows?.length){err.textContent='Usuario no encontrado';err.style.display='block';return;}
+    const user=rows[0];
+    const hash=await sha256(p);
+    if(user.password!==hash){err.textContent='Contraseña incorrecta';err.style.display='block';return;}
+    currentUser={id:user.id,nombre:user.nombre,usuario:user.usuario,rol:user.rol};
+    localStorage.setItem('pu',JSON.stringify(currentUser));
     enterApp();
-  }catch(e){
-    _sessionToken=null;
-    err.textContent=e.message.includes('Invalid login')||e.message.includes('invalid_grant')
-      ? 'Email o contraseña incorrectos'
-      : e.message;
-    err.style.display='block';
-  }
+  }catch(e){err.textContent='Error de conexión: '+e.message;err.style.display='block';}
   finally{btn.disabled=false;btn.textContent='Entrar →';loader(false);}
 }
 
@@ -610,7 +567,7 @@ async function enterApp(){
 }
 function pedirLogout(){document.getElementById('modal-logout').classList.add('show')}
 function cerrarModal(){document.getElementById('modal-logout').classList.remove('show')}
-async function confirmarLogout(){cerrarModal();await authSignOut();localStorage.removeItem('pu');currentUser=null;show('screen-login')}
+function confirmarLogout(){cerrarModal();localStorage.removeItem('pu');currentUser=null;show('screen-login')}
 function doLogout(){pedirLogout()} // alias por compatibilidad
 
 function switchPanel(panel,el){
@@ -1009,7 +966,7 @@ function irAFichaDesdeAsignacion(asigId, parque){
 async function loadPanelAsignar(){
   // Cargar revisores
   try{
-    const users=await sb('perfiles?rol=eq.revisor&select=*&order=nombre.asc')||[];
+    const users=await sb('usuarios?rol=eq.revisor&select=*&order=nombre.asc')||[];
     const sel=document.getElementById('asig-revisor');
     sel.innerHTML='<option value="">Selecciona un revisor...</option>'+
       users.map(u=>`<option value="${u.id}" data-nombre="${u.nombre}">${u.nombre}</option>`).join('');
@@ -1480,38 +1437,31 @@ async function loadUsuarios(){
   const el=document.getElementById('lista-usuarios');
   el.innerHTML='<div class="empty"><div class="empty-icon">⏳</div>Cargando...</div>';
   try{
-    const users=await sb('perfiles?select=*&order=nombre.asc')||[];
+    const users=await sb('usuarios?select=*&order=nombre.asc')||[];
     if(!users.length){el.innerHTML='<div class="empty"><div class="empty-icon">👤</div>Sin usuarios</div>';return;}
-    window._usuariosIdx=users;
-    el.innerHTML=users.map((u,i)=>`<div class="usr-card">
-      <div class="usr-avatar ${u.rol==='coordinador'?'coord':''}">${u.nombre.charAt(0).toUpperCase()}</div>
-      <div style="flex:1;min-width:0"><div class="usr-name">${u.nombre}</div><div class="usr-meta">${u.email||''}</div></div>
-      <span class="usr-badge ${u.rol}">${u.rol}</span>
-      ${u.id!==currentUser.id?`<button class="del-btn" onclick="pedirEliminarUsuario(window._usuariosIdx[${i}].id,window._usuariosIdx[${i}].nombre)">✕</button>`:''}
-    </div>`).join('');
+    el.innerHTML=users.map(u=>`<div class="usr-card"><div class="usr-avatar ${u.rol==='coordinador'?'coord':''}">${u.nombre.charAt(0).toUpperCase()}</div><div style="flex:1;min-width:0"><div class="usr-name">${u.nombre}</div><div class="usr-meta">@${u.usuario}</div></div><span class="usr-badge ${u.rol}">${u.rol}</span>${u.id!==currentUser.id?`<button class="del-btn" onclick="pedirEliminarUsuario('${u.id}','${u.nombre.replace(/'/g,"\\'")}')">✕</button>`:''}</div>`).join('');
   }catch(e){el.innerHTML=`<div class="empty">Error: ${e.message}</div>`;}
 }
 
 async function crearUsuario(){
-  const nombre=document.getElementById('nu-n').value.trim();
-  const email=document.getElementById('nu-u').value.trim().toLowerCase();
-  const password=document.getElementById('nu-p').value;
-  const rol=document.getElementById('nu-r').value;
-  if(!nombre||!email||!password){toast('Rellena todos los campos','err');return;}
-  if(password.length<6){toast('Contraseña mínimo 6 caracteres','err');return;}
+  const n=document.getElementById('nu-n').value.trim();
+  const u=document.getElementById('nu-u').value.trim().toLowerCase();
+  const p=document.getElementById('nu-p').value;
+  const r=document.getElementById('nu-r').value;
+  if(!n||!u||!p){toast('Rellena todos los campos','err');return;}
+  if(p.length<4){toast('Contraseña mínimo 4 caracteres','err');return;}
+  let hash;
+  try{hash=await sha256(p);}
+  catch(e){toast('Error al generar hash: '+e.message,'err');return;}
   loader(true);
   try{
-    // 1. Crear usuario en Auth
-    const authData=await authCreateUser(email, password);
-    if(!authData.user?.id) throw new Error(authData.error_description||'Error al crear el usuario en Auth');
-    // 2. Insertar perfil (con el JWT del coordinador actual)
-    await sb('perfiles',{method:'POST',prefer:'return=minimal',body:{id:authData.user.id,nombre,rol}});
-    toast('Usuario '+nombre+' creado','ok');
+    await sb('usuarios',{method:'POST',prefer:'return=minimal',body:{nombre:n,usuario:u,password:hash,rol:r}});
+    toast('Usuario '+n+' creado','ok');
     document.getElementById('nu-n').value='';
     document.getElementById('nu-u').value='';
     document.getElementById('nu-p').value='';
     loadUsuarios();
-  }catch(e){toast('Error: '+e.message,'err');}
+  }catch(e){toast('Error: '+(e.message.includes('duplicate')?'Usuario ya existe':e.message),'err');}
   finally{loader(false);}
 }
 
@@ -1535,9 +1485,7 @@ async function confirmarEliminarUsuario(){
   cerrarModalEliminar();
   loader(true);
   try{
-    // Borrar perfil — auth.users se borra en cascada (on delete cascade en tabla perfiles)
-    // Para borrar el usuario de auth necesitamos service role, así que solo borramos el perfil
-    await sb(`perfiles?id=eq.${id}`,{method:'DELETE'});
+    await sb(`usuarios?id=eq.${id}`,{method:'DELETE'});
     toast('Usuario '+nombre+' eliminado','ok');
     loadUsuarios();
   }catch(e){toast('Error: '+e.message,'err');}
@@ -1546,17 +1494,7 @@ async function confirmarEliminarUsuario(){
 
 (function(){
   const s=localStorage.getItem('pu');
-  if(s){
-    try{
-      const saved=JSON.parse(s);
-      if(saved.access_token){
-        _sessionToken=saved.access_token;
-        currentUser={id:saved.id,nombre:saved.nombre,email:saved.email,rol:saved.rol};
-        enterApp();
-        return;
-      }
-    }catch(e){localStorage.removeItem('pu');}
-  }
+  if(s){try{currentUser=JSON.parse(s);enterApp();return;}catch(e){localStorage.removeItem('pu');}}
   show('screen-login');
 })();
 </script>
