@@ -1,406 +1,1564 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with Meyawo landing page.">
-    <meta name="author" content="Devcrud">
-    <title>Meyawo Landing page | Free Bootstrap 4.3.x landing page</title>
-    <!-- font icons -->
-    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
-    <!-- Bootstrap + Meyawo main styles -->
-	<link rel="stylesheet" href="assets/css/meyawo.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1a3a2a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Parques · Mejorada del Campo</title>
+<style>
+:root{--bg:#f2efe8;--surface:#fff;--green:#1a3a2a;--green-mid:#2d6247;--green-lt:#e6efe9;--amber:#b87a1a;--red:#b03030;--red-lt:#fdf0f0;--ink:#1a1a18;--muted:#888880;--border:#ddd8ce;--radius:10px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.4}
+.screen{display:none;height:100dvh;flex-direction:column;overflow:hidden}
+.screen.active{display:flex}
+.scroll{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.topbar{background:var(--green);color:#fff;padding:.75rem 1rem;display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.back-btn{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.3rem;line-height:1;padding:.1rem .3rem}
+.back-btn:hover{color:#fff}
+.topbar-title{font-size:.95rem;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar-sub{font-size:.68rem;color:rgba(255,255,255,.5);margin-top:1px}
+#screen-login{background:var(--green);justify-content:center;align-items:center;padding:1.5rem}
+.login-card{background:var(--bg);border-radius:18px;padding:2rem 1.5rem;width:100%;max-width:360px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.login-logo{font-size:1.4rem;font-weight:700;color:var(--green);margin-bottom:.15rem}
+.login-sub{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.6rem}
+.field{margin-bottom:.9rem}
+.field label{display:block;font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.field input,.field select,.field textarea{width:100%;padding:.65rem .85rem;border:1.5px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:.9rem;background:var(--surface);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s;appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green-mid);box-shadow:0 0 0 3px rgba(45,98,71,.12)}
+.field textarea{resize:vertical;min-height:56px;font-size:.82rem}
+.btn{display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;padding:.75rem 1rem;border:none;border-radius:var(--radius);font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-mid)}
+.btn-primary:active{transform:translateY(1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+.home-hero{background:var(--green);padding:1rem 1rem 1rem;color:#fff;flex-shrink:0}
+.home-greeting{font-size:.65rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em}
+.home-name{font-size:1.3rem;font-weight:700;margin:.1rem 0 .05rem}
+.home-role{font-size:.65rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;padding:.75rem;flex-shrink:0}
+.stat-card{background:var(--surface);border-radius:var(--radius);padding:.7rem .5rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.stat-num{font-size:1.6rem;font-weight:700;line-height:1;color:var(--green)}
+.stat-num.red{color:var(--red)}.stat-num.amber{color:var(--amber)}
+.stat-lbl{font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.2rem}
+.chips{display:flex;gap:.35rem;padding:.5rem .75rem;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:.3rem .7rem;border-radius:20px;border:1.5px solid var(--border);font-size:.7rem;cursor:pointer;white-space:nowrap;color:var(--muted);background:var(--surface);font-family:inherit;transition:all .15s;flex-shrink:0}
+.chip.active{background:var(--green);border-color:var(--green);color:#fff;font-weight:600}
+.list-label{font-size:.63rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;padding:.5rem .75rem .3rem;flex-shrink:0}
+.parque-row{display:flex;align-items:center;gap:.7rem;padding:.7rem .75rem;background:var(--surface);border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+.parque-row:first-child{border-top:1px solid var(--border)}
+.parque-row:hover{background:#f8f6f0}
+.p-dot{width:9px;height:9px;border-radius:50%;background:var(--border);flex-shrink:0}
+.p-dot.grave{background:var(--red)}.p-dot.urgente{background:var(--amber)}.p-dot.ok{background:#3d9e5f}
+.p-name{font-size:.83rem;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p-meta{font-size:.65rem;color:var(--muted)}
+.p-arrow{color:var(--border);font-size:.85rem}
+.tabbar{display:flex;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0}
+.tab{flex:1;padding:.55rem .3rem .45rem;display:flex;flex-direction:column;align-items:center;gap:.15rem;background:none;border:none;cursor:pointer;font-family:inherit;font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;transition:color .15s}
+.tab.active{color:var(--green);font-weight:600}
+.tab svg{width:19px;height:19px}
+.card{background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+#rd-body .card{margin-bottom:.6rem}
+#rd-body .card:last-child{margin-bottom:0}
+.card-header{background:var(--green-lt);padding:.55rem .85rem;font-size:.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.06em}
+.card-body{padding:.5rem .85rem}
+.def-row{display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid #f3f0eb;font-size:.8rem}
+.def-row:last-child{border:none}
+.badge{font-size:.6rem;padding:.15rem .45rem;border-radius:4px;font-weight:700;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.badge.grave{background:var(--red-lt);color:var(--red)}
+.badge.urgente{background:#fff5e6;color:var(--amber)}
+.badge.ok{background:var(--green-lt);color:var(--green-mid)}
+.obs-text{font-size:.75rem;color:var(--muted);font-style:italic;padding:.3rem 0 .1rem}
+.hist-row{display:flex;align-items:center;gap:.6rem;padding:.65rem .85rem;border-bottom:1px solid #f3f0eb;cursor:pointer;transition:background .1s}
+.hist-row:hover{background:#fafaf6}
+.hist-row:last-child{border:none}
+.hist-fecha{font-size:.8rem;font-weight:600;flex:1}
+.hist-revisor{font-size:.68rem;color:var(--muted)}
+.rev-hero{background:var(--green);padding:1rem;color:#fff;flex-shrink:0}
+.fsec{background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.fsec-hdr{display:flex;align-items:center;padding:.6rem .85rem;background:var(--green-lt);cursor:pointer;user-select:none}
+.fsec-hdr h3{font-size:.72rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.06em;flex:1}
+.fsec-toggle{font-size:.75rem;color:var(--green-mid);transition:transform .2s}
+.fsec.collapsed .fsec-toggle{transform:rotate(-90deg)}
+.fsec-body{padding:.35rem .85rem .6rem;display:flex;flex-direction:column;gap:0}
+.fsec.collapsed .fsec-body{display:none}
+.chk-row{display:flex;align-items:center;padding:.45rem 0;border-bottom:1px solid #f3f0eb}
+.chk-row:last-of-type{border:none}
+.chk-label{flex:1;font-size:.8rem;color:var(--ink);padding-right:.5rem}
+.pill-group{display:flex;gap:.3rem;flex-shrink:0}
+.pill{display:flex;align-items:center;justify-content:center;width:38px;height:26px;border-radius:6px;border:1.5px solid var(--border);font-size:.65rem;font-weight:700;cursor:pointer;transition:all .12s;color:var(--muted);user-select:none}
+/* SÍ = problema = rojo */
+.pill.prob.on{background:var(--red-lt);border-color:var(--red);color:var(--red)}
+/* NO = correcto = verde */
+.pill.ok.on{background:#e6f5ec;border-color:#3d9e5f;color:#1a5c30}
+/* radio (secciones 7/8): marcado = verde neutro */
+.pill.radio-pill.on{background:var(--green-lt);border-color:var(--green-mid);color:var(--green);width:auto;padding:0 .6rem}
+/* legacy por si acaso */
+.pill.si.on{background:var(--red-lt);border-color:var(--red);color:var(--red)}
+.pill.no.on{background:#e6f5ec;border-color:#3d9e5f;color:#1a5c30}
+.obs-lbl{font-size:.63rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:.5rem 0 .25rem;display:block}
+.pav-opts{display:flex;flex-wrap:wrap;gap:.3rem;margin:.3rem 0 .5rem}
+.pav-pill{padding:.25rem .65rem;border-radius:20px;border:1.5px solid var(--border);font-size:.7rem;cursor:pointer;color:var(--muted);transition:all .12s;user-select:none}
+.pav-pill.on{background:var(--green-lt);border-color:var(--green-mid);color:var(--green);font-weight:600}
+.eq-block{border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:.4rem}
+.eq-hdr{display:flex;align-items:center;justify-content:space-between;padding:.5rem .75rem;background:#fafaf6;cursor:pointer;font-size:.78rem;font-weight:600}
+.eq-body{padding:.3rem .75rem}
+.submit-bar{padding:.7rem .75rem;background:linear-gradient(to top,var(--bg) 65%,transparent);flex-shrink:0}
+.rd-row{display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;border-bottom:1px solid #f3f0eb;font-size:.8rem}
+.rd-row:last-child{border:none}
+.rd-val{font-weight:700}
+.rd-val.si{color:#2d7a4a}.rd-val.no{color:var(--muted)}.rd-val.alerta{color:var(--red)}
+.usr-card{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;background:var(--surface);border-bottom:1px solid var(--border)}
+.usr-card:first-child{border-top:1px solid var(--border)}
+.usr-avatar{width:34px;height:34px;border-radius:50%;background:var(--green-lt);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--green);flex-shrink:0;font-size:.9rem}
+.usr-avatar.coord{background:#fff3e0;color:var(--amber)}
+.usr-name{font-size:.83rem;font-weight:600}
+.usr-meta{font-size:.68rem;color:var(--muted)}
+.usr-badge{font-size:.6rem;padding:.15rem .45rem;border-radius:4px;font-weight:700;margin-left:auto}
+.usr-badge.revisor{background:var(--green-lt);color:var(--green-mid)}
+.usr-badge.coordinador{background:#fff3e0;color:var(--amber)}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--border);font-size:1rem;padding:.2rem .4rem;margin-left:.3rem;transition:color .15s}
+.del-btn:hover{color:var(--red)}
+.toast{position:fixed;bottom:4.5rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--ink);color:#fff;padding:.6rem 1.2rem;border-radius:40px;font-size:.8rem;z-index:9999;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{background:var(--green-mid)}.toast.err{background:var(--red)}
+.loader{position:fixed;inset:0;background:rgba(26,58,42,.8);display:none;align-items:center;justify-content:center;z-index:9999}
+.loader.show{display:flex}
+.spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{text-align:center;padding:2rem 1rem;color:var(--muted);font-size:.82rem}
+.empty-icon{font-size:2rem;margin-bottom:.4rem}
+.sec-lbl{font-size:.63rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;padding:.6rem .75rem .3rem}
+
+/* ── SEARCH BAR ── */
+.search-bar{padding:.5rem .75rem;flex-shrink:0;display:flex;gap:.4rem;align-items:center}
+.search-input{flex:1;padding:.5rem .75rem .5rem 2.1rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.82rem;background:var(--surface);color:var(--ink);outline:none;transition:border-color .15s}
+.search-input:focus{border-color:var(--green-mid)}
+.search-wrap{position:relative;flex:1}
+.search-icon{position:absolute;left:.6rem;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:.85rem}
+.sort-btn{padding:.5rem .65rem;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);font-family:inherit;font-size:.72rem;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:.3rem}
+.sort-btn.active{border-color:var(--green-mid);color:var(--green);background:var(--green-lt)}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:8000;display:none;align-items:flex-end;justify-content:center;padding:0}
+.modal-overlay.show{display:flex}
+.modal{background:var(--surface);border-radius:18px 18px 0 0;padding:1.5rem 1.25rem 2rem;width:100%;max-width:480px;animation:slideUp .22s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-title{font-size:1rem;font-weight:700;margin-bottom:.35rem}
+.modal-body{font-size:.82rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.5}
+.modal-btns{display:flex;flex-direction:column;gap:.5rem}
+.btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:#8a2020}
+
+/* ── ASIGNACIONES ── */
+.asig-banner{margin:.75rem .75rem 0;background:#fff8e6;border:1.5px solid #f5d87a;border-radius:var(--radius);padding:.7rem .85rem;display:flex;align-items:flex-start;gap:.6rem}
+.asig-banner-icon{font-size:1.1rem;flex-shrink:0;margin-top:.05rem}
+.asig-banner-content{flex:1;min-width:0}
+.asig-banner-title{font-size:.78rem;font-weight:700;color:#7a5500;margin-bottom:.15rem}
+.asig-banner-parque{font-size:.82rem;color:var(--ink);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.asig-banner-nota{font-size:.72rem;color:var(--muted);margin-top:.1rem;font-style:italic}
+.asig-banner-btn{background:#f5d87a;border:none;border-radius:6px;padding:.35rem .65rem;font-size:.72rem;font-weight:700;color:#7a5500;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:inherit;transition:background .15s}
+.asig-banner-btn:hover{background:#f0ca50}
+
+/* ── ASIGNAR PANEL ── */
+.asig-row{display:flex;align-items:center;gap:.6rem;padding:.65rem .85rem;background:var(--surface);border-bottom:1px solid var(--border)}
+.asig-row:first-child{border-top:1px solid var(--border)}
+.asig-info{flex:1;min-width:0}
+.asig-parque{font-size:.82rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.asig-meta{font-size:.68rem;color:var(--muted)}
+.asig-done-btn{background:var(--green-lt);border:none;border-radius:6px;padding:.3rem .55rem;font-size:.68rem;font-weight:700;color:var(--green-mid);cursor:pointer;font-family:inherit;transition:background .15s}
+.asig-done-btn:hover{background:#c8e6d0}
+.asig-del-btn{background:none;border:none;cursor:pointer;color:var(--border);font-size:1rem;padding:.2rem .3rem;transition:color .15s}
+.asig-del-btn:hover{color:var(--red)}
+
+/* ── RESUELTA badge ── */
+.badge-resuelta{font-size:.6rem;padding:.15rem .45rem;border-radius:4px;font-weight:700;background:#e8f0eb;color:var(--green-mid);white-space:nowrap}
+.rev-resuelta{opacity:.55}
+.rev-resuelta .hist-fecha{text-decoration:line-through}
+
+/* ── DETALLE PARQUE: 2 columnas ── */
+.det-meta-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.det-col{background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.det-col-hdr{background:var(--green-lt);padding:.45rem .75rem;font-size:.65rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
+.det-col-body{padding:.4rem .65rem;flex:1;display:flex;flex-direction:column;gap:0}
+.obs-block{padding:.35rem 0;border-bottom:1px solid #f3f0eb}
+.obs-block:last-child{border:none}
+.obs-sec-badge{display:inline-block;font-size:.58rem;font-weight:700;padding:.1rem .4rem;border-radius:3px;background:var(--green-lt);color:var(--green-mid);margin-bottom:.2rem}
+.obs-block-text{font-size:.75rem;color:var(--ink);line-height:1.45;margin:0}
+.obs-empty{font-size:.75rem;color:var(--muted);font-style:italic;padding:.3rem 0}
+</style>
 </head>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+<body>
+<div class="loader" id="loader"><div class="spinner"></div></div>
+<div class="toast" id="toast"></div>
 
-    <!-- Page Navbar -->
-    <nav class="custom-navbar" data-spy="affix" data-offset-top="20">
-        <div class="container">
-            <a class="logo" href="#">Meyawo</a>         
-            <ul class="nav">
-                <li class="item">
-                    <a class="link" href="#home">Home</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#about">About</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#portfolio">Portfolio</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#testmonial">Testmonial</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#blog">Blog</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#contact">Contact</a>
-                </li>
-                <li class="item ml-md-3">
-                    <a href="components.html" class="btn btn-primary">Components</a>
-                </li>
-            </ul>
-            <a href="javascript:void(0)" id="nav-toggle" class="hamburger hamburger--elastic">
-                <div class="hamburger-box">
-                  <div class="hamburger-inner"></div>
-                </div>
-            </a>
-        </div>          
-    </nav><!-- End of Page Navbar -->
+<!-- LOGIN -->
+<div class="screen active" id="screen-login">
+  <div class="login-card">
+    <div class="login-logo">🌳 Parques</div>
+    <div class="login-sub">Mejorada del Campo · Revisiones</div>
+    <div class="field"><label>Email</label>
+      <input id="lu" type="email" placeholder="correo@ejemplo.com" autocomplete="email" autocapitalize="none" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="field"><label>Contraseña</label>
+      <input id="lp" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div id="lerr" style="display:none;margin-bottom:.75rem;padding:.5rem .75rem;background:var(--red-lt);border:1px solid #f0b8b8;border-radius:8px;font-size:.78rem;color:var(--red)"></div>
+    <button class="btn btn-primary" id="btn-login" onclick="doLogin()">Entrar →</button>
+  </div>
+</div>
 
-    <!-- page header -->
-    <header id="home" class="header">
-        <div class="overlay"></div>
-        <div class="header-content container">
-            <h1 class="header-title">
-                <span class="up">HI!</span>
-                <span class="down">I am John Doe</span>
-            </h1>
-            <p class="header-subtitle">FRONTEND WEB DESIGNER</p>            
+<!-- HOME COORDINADOR -->
+<div class="screen" id="screen-home">
+  <!-- PANEL RESUMEN -->
+  <div id="panel-resumen" style="display:flex;flex-direction:column;overflow:hidden;flex:1">
+    <div class="home-hero">
+      <div class="home-greeting">Coordinador</div>
+      <div class="home-name" id="home-nombre">—</div>
+      <div class="home-role">Parques infantiles · Mejorada del Campo</div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num red" id="st-graves">—</div><div class="stat-lbl">Graves</div></div>
+      <div class="stat-card"><div class="stat-num amber" id="st-urgentes">—</div><div class="stat-lbl">Urgentes</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-revisados">—</div><div class="stat-lbl">Revisados</div></div>
+    </div>
+    <div class="chips">
+      <button class="chip active" onclick="setFiltro('todos',this)">Todos</button>
+      <button class="chip" onclick="setFiltro('grave',this)">⚠ Graves</button>
+      <button class="chip" onclick="setFiltro('urgente',this)">🔶 Urgentes</button>
+      <button class="chip" onclick="setFiltro('ok',this)">✓ Correctos</button>
+      <button class="chip" onclick="setFiltro('sin-revision',this)">○ Sin revisar</button>
+    </div>
+    <div class="search-bar">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" id="buscador" type="search" placeholder="Buscar parque…" oninput="renderDashboard()">
+      </div>
+      <button class="sort-btn active" id="sort-btn" onclick="toggleSort()">
+        <span id="sort-icon">↓</span><span id="sort-label">Recientes</span>
+      </button>
+    </div>
+    <div class="list-label" id="list-count">Parques municipales</div>
+    <div class="scroll" id="parque-list"><div class="empty"><div class="empty-icon">⏳</div>Cargando...</div></div>
+  </div>
 
-            <button class="btn btn-primary">Visit My Works</button>
-        </div>              
-    </header><!-- end of page header -->
+  <!-- PANEL REVISIÓN -->
+  <div id="panel-revision" style="display:none;flex-direction:column;overflow:hidden;flex:1">
+    <div class="home-hero" style="padding-bottom:1rem">
+      <div class="home-greeting">Nueva revisión</div>
+      <div class="home-name" id="home-nombre2">—</div>
+    </div>
+    <div class="scroll" style="padding:.75rem">
+      <div class="field"><label>Parque</label><select id="cp-parque"></select></div>
+      <div class="field"><label>Fecha</label><input type="date" id="cp-fecha"></div>
+      <button class="btn btn-primary" onclick="irAFichaCoordi()">Iniciar revisión →</button>
+    </div>
+  </div>
 
-    <!-- about section -->
-    <section class="section pt-0" id="about">
-        <!-- container -->
-        <div class="container text-center">
-            <!-- about wrapper -->
-            <div class="about">
-                <div class="about-img-holder">
-                    <img src="assets/imgs/man.png" class="about-img" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
-                </div>
-                <div class="about-caption">
-                    <p class="section-subtitle">Who Am I ?</p>
-                    <h2 class="section-title mb-3">About Me</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae aliquid ad provident aut fuga animi soluta quae eos non cupiditate voluptates dolorem, doloremque quos dicta quibusdam impedit iure nemo a iste 
-                        <br>culpa! Quasi quibusdam hic recusandae delectus velit officiis explicabo voluptatibus! Nemo esse similique, voluptates labore distinctio, placeat explicabo facilis molestias, blanditiis culpa iusto voluptatem ratione eligendi a, quia temporibus velit vero ipsa sint ex voluptatum expedita aliquid! Debitis, nam!              
-                    </p>
-                    <button class="btn-rounded btn btn-outline-primary mt-4">Download CV</button>
-                </div>              
-            </div><!-- end of about wrapper -->
-        </div><!-- end of container -->
-    </section> <!-- end of about section -->
-
-    <!-- service section -->
-    <section class="section" id="service">
-        <div class="container text-center">
-            <p class="section-subtitle">What I Do ?</p>
-            <h6 class="section-title mb-6">Service</h6>
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-6 col-lg-3">
-                    <div class="service-card">
-                        <div class="body">
-                            <img src="assets/imgs/pencil-case.svg" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page" class="icon">
-                            <h6 class="title">Adipisicing</h6>
-                            <p class="subtitle">Labore velit culpa adipisci excepturi consequuntur itaque in nam molestias dolorem iste quod.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="service-card">
-                        <div class="body">
-                            <img src="assets/imgs/responsive.svg" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page" class="icon">
-                            <h6 class="title">Sapiente</h6>
-                            <p class="subtitle">Labore velit culpa adipisci excepturi consequuntur itaque in nam molestias dolorem iste quod.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="service-card">
-                        <div class="body">
-                            <img src="assets/imgs/toolbox.svg" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page" class="icon">
-                            <h6 class="title">Placeat</h6>
-                            <p class="subtitle">Labore velit culpa adipisci excepturi consequuntur itaque in nam molestias dolorem iste quod.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="service-card">
-                        <div class="body">
-                            <img src="assets/imgs/analytics.svg" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page" class="icon">
-                            <h6 class="title">Iusto</h6>
-                            <p class="subtitle">Labore velit culpa adipisci excepturi consequuntur itaque in nam molestias dolorem iste quod.</p>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- end of row -->
+  <!-- PANEL USUARIOS -->
+  <div id="panel-usuarios" style="display:none;flex-direction:column;overflow:hidden;flex:1">
+    <div class="home-hero" style="padding-bottom:1rem">
+      <div class="home-greeting">Gestión</div>
+      <div class="home-name">Usuarios</div>
+    </div>
+    <div class="scroll">
+      <div class="sec-lbl">Nuevo usuario</div>
+      <div style="padding:0 .75rem .75rem">
+        <div class="field"><label>Nombre completo</label><input id="nu-n" type="text" placeholder="Ana García"></div>
+        <div class="field"><label>Email</label><input id="nu-u" type="email" placeholder="ana@mejorada.es" autocapitalize="none"></div>
+        <div class="field"><label>Contraseña</label><input id="nu-p" type="password" placeholder="mínimo 6 caracteres"></div>
+        <div class="field"><label>Rol</label>
+          <select id="nu-r"><option value="revisor">Revisor</option><option value="coordinador">Coordinador</option></select>
         </div>
-    </section><!-- end of service section -->
+        <button class="btn btn-primary" onclick="crearUsuario()">Crear usuario</button>
+      </div>
+      <div class="sec-lbl" style="margin-top:.25rem">Usuarios existentes</div>
+      <div id="lista-usuarios"><div class="empty"><div class="empty-icon">⏳</div>Cargando...</div></div>
+    </div>
+  </div>
 
-    <!-- portfolio section -->
-    <section class="section" id="portfolio">
-        <div class="container text-center">
-            <p class="section-subtitle">What I Did ?</p>
-            <h6 class="section-title mb-6">Portfolio</h6>
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-4">
-                    <a href="#" class="portfolio-card">
-                        <img src="assets/imgs/folio-1.jpg" class="portfolio-card-img" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">    
-                        <span class="portfolio-card-overlay">
-                            <span class="portfolio-card-caption">
-                                <h4>Web Designing</h5>
-                                <p class="font-weight-normal">Category: Web Templates</p>
-                            </span>                         
-                        </span>                     
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="#" class="portfolio-card">
-                        <img class="portfolio-card-img" src="assets/imgs/folio-2.jpg" class="img-responsive rounded" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
-                        <span class="portfolio-card-overlay">
-                            <span class="portfolio-card-caption">
-                                <h4>Web Designing</h5>
-                                <p class="font-weight-normal">Category: Web Templates</p>
-                            </span>                         
-                        </span>                         
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="#" class="portfolio-card">
-                        <img class="portfolio-card-img" src="assets/imgs/folio-3.jpg" class="img-responsive rounded" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">    
-                        <span class="portfolio-card-overlay">
-                            <span class="portfolio-card-caption">
-                                <h4>Web Designing</h5>
-                                <p class="font-weight-normal">Category: Web Templates</p>
-                            </span>                         
-                        </span>                     
-                    </a>
-                </div>
-            </div><!-- end of row -->
-        </div><!-- end of container -->
-    </section> <!-- end of portfolio section -->
+  <!-- PANEL ASIGNAR -->
+  <div id="panel-asignar" style="display:none;flex-direction:column;overflow:hidden;flex:1">
+    <div class="home-hero" style="padding-bottom:1rem">
+      <div class="home-greeting">Asignaciones</div>
+      <div class="home-name">Enviar revisión</div>
+    </div>
+    <div class="scroll">
+      <div class="sec-lbl">Nueva asignación</div>
+      <div style="padding:0 .75rem .75rem">
+        <div class="field"><label>Revisor</label><select id="asig-revisor"><option value="">Selecciona un revisor...</option></select></div>
+        <div class="field"><label>Parque</label><select id="asig-parque"></select></div>
+        <div class="field"><label>Nota para el revisor (opcional)</label>
+          <textarea id="asig-nota" style="width:100%;padding:.6rem .85rem;border:1.5px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:.85rem;background:var(--surface);outline:none;resize:vertical;min-height:60px" placeholder="Ej: Revisar especialmente el tobogán…"></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="crearAsignacion()">Enviar asignación →</button>
+      </div>
+      <div class="sec-lbl" style="margin-top:.25rem">Asignaciones activas</div>
+      <div id="lista-asignaciones"><div class="empty"><div class="empty-icon">⏳</div>Cargando...</div></div>
+    </div>
+  </div>
 
-    <!-- pricing section -->
-    <section class="section" id="pricing">
-        <div class="container text-center">
-            <p class="section-subtitle">How Much I Charge ?</p>
-            <h6 class="section-title mb-6">My Pricing</h6>
-            <!-- row -->
-            <div class="pricing-wrapper">
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <img class="pricing-card-icon" src="assets/imgs/scooter.svg" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
-                    </div>
-                    <div class="pricing-card-body">
-                        <h6 class="pricing-card-title">Free</h6>
-                        <div class="pricing-card-list">
-                            <p>accusamus reprehenderit</p>
-                            <p>provident dolorem </p>
-                            <p>quos neque</p>
-                            <p>fugiat quibusdam</p>
-                            <p><i class="ti-close"></i></p>
-                            <p><i class="ti-close"></i></p>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <span>$</span>
-                        <span>0.00/Month</span>
-                    </div>
-                    <a href="#" class="btn btn-primary mt-3 pricing-card-btn">Subscribe</a>
-                </div>
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <img class="pricing-card-icon" src="assets/imgs/shipped.svg" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
-                    </div>
-                    <div class="pricing-card-body">
-                        <h6 class="pricing-card-title">Basic</h6>
-                        <div class="pricing-card-list">
-                            <p>accusamus reprehenderit</p>
-                            <p>provident dolorem </p>
-                            <p>quos neque</p>
-                            <p>fugiat quibusdam</p>
-                            <p>accusamus laboriosam</p>
-                            <p><i class="ti-close"></i></p>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <span>$</span>
-                        <span>9.99/Month</span>
-                    </div>
-                    <a href="#" class="btn btn-primary mt-3 pricing-card-btn">Subscribe</a>
-                </div>
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <img class="pricing-card-icon" src="assets/imgs/startup.svg" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
-                    </div>
-                    <div class="pricing-card-body">
-                        <h6 class="pricing-card-title">Premium</h6>
-                        <div class="pricing-card-list">
-                            <p>accusamus reprehenderit</p>
-                            <p>provident dolorem </p>
-                            <p>quos neque</p>
-                            <p>fugiat quibusdam</p>
-                            <p>accusamus laboriosam</p>
-                            <p>inventore omnis</p>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <span>$</span>
-                        <span>99.9/Month</span>
-                    </div>
-                    <a href="#" class="btn btn-primary mt-3 pricing-card-btn">Subscribe</a>
-                </div>
+  <!-- PANEL PARQUES -->
+  <div id="panel-parques" style="display:none;flex-direction:column;overflow:hidden;flex:1">
+    <div class="home-hero" style="padding-bottom:1rem">
+      <div class="home-greeting">Gestión</div>
+      <div class="home-name">Parques</div>
+    </div>
+    <div class="scroll">
+      <div class="sec-lbl">Añadir parque</div>
+      <div style="padding:0 .75rem .75rem;display:flex;gap:.5rem;align-items:flex-end">
+        <div class="field" style="flex:1;margin-bottom:0"><label>Nombre del parque</label><input id="np-nombre" type="text" placeholder="Parque de…" onkeydown="if(event.key==='Enter')crearParque()"></div>
+        <button class="btn btn-primary" style="width:auto;padding:.65rem .9rem;flex-shrink:0" onclick="crearParque()">Añadir</button>
+      </div>
+      <div class="sec-lbl" style="margin-top:.25rem">Parques (<span id="np-count">—</span>)</div>
+      <div id="lista-parques"><div class="empty"><div class="empty-icon">⏳</div>Cargando...</div></div>
+    </div>
+  </div>
 
-            </div><!-- end of pricing wrapper -->
-        </div> <!-- end of container -->
-    </section><!-- end of pricing section -->
+  <div class="tabbar">
+    <button class="tab active" id="tab-res" onclick="switchPanel('resumen',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Resumen
+    </button>
+    <button class="tab" id="tab-rev" onclick="switchPanel('revision',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Revisión
+    </button>
+    <button class="tab" id="tab-asig" onclick="switchPanel('asignar',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+      Asignar
+    </button>
+    <button class="tab" id="tab-usr" onclick="switchPanel('usuarios',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      Usuarios
+    </button>
+    <button class="tab" id="tab-parques" onclick="switchPanel('parques',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Parques
+    </button>
+    <button class="tab" onclick="pedirLogout()">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/></svg>
+      Salir
+    </button>
+  </div>
+</div>
 
-    <!-- section -->
-    <section class="section-sm bg-primary">
-        <!-- container -->
-        <div class="container text-center text-sm-left">
-            <!-- row -->
-            <div class="row align-items-center">
-                <div class="col-sm offset-md-1 mb-4 mb-md-0">
-                    <h6 class="title text-light">Want to work with me?</h6>
-                    <p class="m-0 text-light">Always feel Free to Contact & Hire me</p>
-                </div>
-                <div class="col-sm offset-sm-2 offset-md-3">
-                    <button class="btn btn-lg my-font btn-light rounded">Hire Me</button>
-                </div>
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </section> <!-- end of section -->
+<!-- DETALLE PARQUE -->
+<div class="screen" id="screen-detalle">
+  <div class="topbar">
+    <button class="back-btn" onclick="show('screen-home')">←</button>
+    <div><div class="topbar-title" id="det-titulo">—</div><div class="topbar-sub" id="det-sub"></div></div>
+  </div>
+  <div class="scroll" style="padding:.75rem;display:flex;flex-direction:column;gap:.75rem" id="det-body">
+    <div class="empty"><div class="empty-icon">⏳</div>Cargando...</div>
+  </div>
+</div>
 
-    <!-- testimonial section -->
-    <section class="section" id="testmonial">
-        <div class="container text-center">
-            <p class="section-subtitle">What Think Client About Me ?</p>
-            <h6 class="section-title mb-6">Testmonial</h6>
+<!-- DETALLE REVISIÓN -->
+<div class="screen" id="screen-rd">
+  <div class="topbar">
+    <button class="back-btn" onclick="show('screen-detalle')">←</button>
+    <div><div class="topbar-title" id="rd-titulo">—</div><div class="topbar-sub" id="rd-sub"></div></div>
+  </div>
+  <div class="scroll" style="padding:.75rem" id="rd-body"></div>
+</div>
 
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="testimonial-card">
-                        <div class="testimonial-card-img-holder">
-                            <img src="assets/imgs/avatar2.jpg" class="testimonial-card-img" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">                           
-                        </div>
-                        <div class="testimonial-card-body">
-                            <p class="testimonial-card-subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque doloribus autem aperiam earum nostrum omnis blanditiis corporis perspiciatis adipisci nihil.</p>
-                            <h6 class="testimonial-card-title">Emily Reb</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="testimonial-card">
-                        <div class="testimonial-card-img-holder">
-                            <img src="assets/imgs/avatar3.jpg" class="testimonial-card-img" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">                        
-                        </div>
-                        <div class="testimonial-card-body">
-                            <p class="testimonial-card-subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque doloribus autem aperiam earum nostrum omnis blanditiis corporis perspiciatis adipisci nihil.</p>
-                            <h6 class="testimonial-card-title">Emily Reb</h6>
-                        </div>
-                    </div>
-                </div>
+<!-- REVISOR HOME -->
+<div class="screen" id="screen-revisor">
+  <div class="rev-hero">
+    <div class="home-greeting">Revisor</div>
+    <div class="home-name" id="rev-nombre">—</div>
+    <div class="home-role">Selecciona el parque a revisar</div>
+  </div>
+  <div class="scroll">
+    <div id="asig-revisor-banner"></div>
+    <div style="padding:.75rem">
+      <div class="field"><label>Parque</label><select id="rp-parque"></select></div>
+      <div class="field"><label>Fecha</label><input type="date" id="rp-fecha"></div>
+      <button class="btn btn-primary" onclick="irAFichaRevisor()">Iniciar revisión →</button>
+    </div>
+    <div class="sec-lbl">Mis revisiones recientes</div>
+    <div id="mis-rev"><div class="empty"><div class="empty-icon">📋</div>Sin revisiones aún</div></div>
+  </div>
+  <div class="tabbar">
+    <button class="tab active">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Revisión
+    </button>
+    <button class="tab" onclick="pedirLogout()">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/></svg>
+      Salir
+    </button>
+  </div>
+</div>
+
+<!-- FICHA -->
+<div class="screen" id="screen-ficha">
+  <div class="topbar">
+    <button class="back-btn" id="ficha-back">←</button>
+    <div><div class="topbar-title" id="ficha-titulo">—</div><div class="topbar-sub" id="ficha-sub"></div></div>
+  </div>
+  <div class="scroll">
+    <div style="padding:.6rem .75rem;display:flex;flex-direction:column;gap:.5rem" id="ficha-body"></div>
+    <div class="submit-bar">
+      <button class="btn btn-primary" id="btn-enviar" onclick="enviarFicha()">Enviar revisión ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL LOGOUT -->
+<div class="modal-overlay" id="modal-logout" onclick="if(event.target===this)cerrarModal()">
+  <div class="modal">
+    <div class="modal-title">¿Cerrar sesión?</div>
+    <div class="modal-body">Tendrás que volver a introducir tus credenciales para acceder.</div>
+    <div class="modal-btns">
+      <button class="btn btn-red" onclick="confirmarLogout()">Sí, cerrar sesión</button>
+      <button class="btn btn-ghost" onclick="cerrarModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ELIMINAR USUARIO -->
+<div class="modal-overlay" id="modal-eliminar" onclick="if(event.target===this)cerrarModalEliminar()">
+  <div class="modal">
+    <div class="modal-title">¿Eliminar usuario?</div>
+    <div class="modal-body" id="modal-eliminar-body">Esta acción no se puede deshacer.</div>
+    <div class="modal-btns">
+      <button class="btn btn-red" id="modal-eliminar-confirm">Sí, eliminar usuario</button>
+      <button class="btn btn-ghost" onclick="cerrarModalEliminar()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RESOLVER REVISIÓN -->
+<div class="modal-overlay" id="modal-resolver" onclick="if(event.target===this)cerrarModalResolver()">
+  <div class="modal">
+    <div class="modal-title">✅ Marcar como resuelta</div>
+    <div class="modal-body">Las incidencias de esta revisión han sido atendidas. El parque pasará a estado correcto y la revisión quedará archivada en el historial.</div>
+    <div class="modal-btns">
+      <button class="btn btn-primary" id="modal-resolver-confirm">Sí, marcar como resuelta</button>
+      <button class="btn btn-ghost" onclick="cerrarModalResolver()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PENDIENTE -->
+<div class="modal-overlay" id="modal-pendiente" onclick="if(event.target===this)cerrarModalPendiente()">
+  <div class="modal">
+    <div class="modal-title">⟳ Marcar como pendiente</div>
+    <div class="modal-body">El parque pasará a estado "Sin revisar" y aparecerá como pendiente en el listado. Útil para programar una próxima revisión.</div>
+    <div class="modal-btns">
+      <button class="btn btn-primary" id="modal-pendiente-confirm">Sí, marcar como pendiente</button>
+      <button class="btn btn-ghost" onclick="cerrarModalPendiente()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EDITAR PARQUE -->
+<div class="modal-overlay" id="modal-editar-parque" onclick="if(event.target===this)cerrarModalEditarParque()">
+  <div class="modal">
+    <div class="modal-title">✏️ Editar nombre</div>
+    <div class="modal-body" style="margin-bottom:.75rem">
+      <div class="field" style="margin-bottom:0"><label>Nuevo nombre</label><input id="ep-nombre" type="text" placeholder="Nombre del parque"></div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-primary" id="modal-editar-parque-confirm">Guardar cambios</button>
+      <button class="btn btn-ghost" onclick="cerrarModalEditarParque()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL BORRAR PARQUE -->
+<div class="modal-overlay" id="modal-borrar-parque" onclick="if(event.target===this)cerrarModalBorrarParque()">
+  <div class="modal">
+    <div class="modal-title">🗑️ Eliminar parque</div>
+    <div class="modal-body" id="modal-borrar-parque-body">¿Eliminar este parque? Esta acción no se puede deshacer.</div>
+    <div class="modal-btns">
+      <button class="btn btn-red" id="modal-borrar-parque-confirm">Sí, eliminar</button>
+      <button class="btn btn-ghost" onclick="cerrarModalBorrarParque()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL='https://kiokyuxpyockyixjlrfa.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtpb2t5dXhweW9ja3lpeGpscmZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NDczOTksImV4cCI6MjA5NDEyMzM5OX0.ZjsSBr8FjG5jsf1nRFMH6lA2xhAJk8Z4VYWFvtr7aVg';
+let _sessionToken=null; // JWT de la sesión activa
+
+let PARQUES=[]; // Poblado dinámicamente desde Supabase
+
+let currentUser=null,allRev=[],filtroActivo='todos',fichaData={},fichaReturn='revisor',sortOrder='recientes';
+
+async function sb(path,opts={}){
+  const isPatch=opts.method==='PATCH';
+  const token=_sessionToken||SUPABASE_ANON_KEY;
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/${path}`,{
+    headers:{
+      'apikey':SUPABASE_ANON_KEY,
+      'Authorization':`Bearer ${token}`,
+      'Content-Type':'application/json',
+      'Prefer':opts.prefer||'',
+      ...(isPatch?{'X-HTTP-Method-Override':'PATCH'}:{})
+    },
+    method:opts.method||'GET',
+    body:opts.body?JSON.stringify(opts.body):undefined
+  });
+  if(!r.ok){const txt=await r.text();throw new Error(txt||`HTTP ${r.status}`);}
+  if(r.status===204||r.status===201)return null;
+  const txt=await r.text();
+  if(!txt||!txt.trim())return null;
+  return JSON.parse(txt);
+}
+
+// ── SUPABASE AUTH HELPERS ──────────────────────────────
+async function authSignIn(email, password){
+  const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{
+    method:'POST',
+    headers:{'apikey':SUPABASE_ANON_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({email,password})
+  });
+  const data=await r.json();
+  if(!r.ok) throw new Error(data.error_description||data.msg||'Error de autenticación');
+  return data; // {access_token, refresh_token, expires_in, user}
+}
+
+async function authSignOut(){
+  if(!_sessionToken) return;
+  await fetch(`${SUPABASE_URL}/auth/v1/logout`,{
+    method:'POST',
+    headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${_sessionToken}`}
+  });
+  _sessionToken=null;
+}
+
+async function authCreateUser(email, password){
+  // Usar el service role key para crear usuarios (solo disponible server-side normalmente)
+  // En su lugar usamos la Admin API via invitación, o signup directo
+  const r=await fetch(`${SUPABASE_URL}/auth/v1/signup`,{
+    method:'POST',
+    headers:{'apikey':SUPABASE_ANON_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({email,password})
+  });
+  const data=await r.json();
+  if(!r.ok) throw new Error(data.error_description||data.msg||'Error creando usuario');
+  return data;
+}
+
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function loader(v){document.getElementById('loader').classList.toggle('show',v)}
+let _tt;
+function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(type?' '+type:'');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),3000)}
+function fmtF(f){if(!f)return'—';return new Date(f+'T12:00:00').toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric'})}
+function parqueOpts(){return'<option value="">Selecciona un parque...</option>'+PARQUES.map(p=>`<option value="${p.replace(/"/g,'&quot;')}">${p}</option>`).join('')}
+
+// ── HASH SHA-256 (Web Crypto API, disponible en todos los navegadores modernos) ──
+
+async function doLogin(){
+  const email=document.getElementById('lu').value.trim().toLowerCase();
+  const password=document.getElementById('lp').value;
+  const err=document.getElementById('lerr');
+  const btn=document.getElementById('btn-login');
+  err.style.display='none';
+  if(!email||!password){err.textContent='Introduce email y contraseña';err.style.display='block';return;}
+  btn.disabled=true;btn.textContent='Entrando...';loader(true);
+  try{
+    // 1. Autenticar con Supabase Auth
+    const session=await authSignIn(email, password);
+    _sessionToken=session.access_token;
+
+    // 2. Cargar perfil (nombre + rol) desde tabla perfiles
+    const perfiles=await sb(`perfiles?id=eq.${session.user.id}&select=*`);
+    if(!perfiles?.length) throw new Error('Perfil no encontrado. Contacta con el administrador.');
+    const perfil=perfiles[0];
+
+    currentUser={id:session.user.id, nombre:perfil.nombre, email, rol:perfil.rol};
+    // Guardar sesión completa para restaurar al recargar
+    localStorage.setItem('pu',JSON.stringify({...currentUser, access_token:session.access_token}));
+    enterApp();
+  }catch(e){
+    _sessionToken=null;
+    err.textContent=e.message.includes('Invalid login')||e.message.includes('invalid_grant')
+      ? 'Email o contraseña incorrectos'
+      : e.message;
+    err.style.display='block';
+  }
+  finally{btn.disabled=false;btn.textContent='Entrar →';loader(false);}
+}
+
+async function enterApp(){
+  if(currentUser.rol==='coordinador'){
+    document.getElementById('home-nombre').textContent=currentUser.nombre;
+    document.getElementById('home-nombre2').textContent=currentUser.nombre;
+    show('screen-home');
+    switchPanel('resumen',document.getElementById('tab-res'));
+    loadDashboard();
+  }else{
+    // Cargar parques dinámicamente para el revisor
+    try{
+      const parquesData=await sb('parques?select=*&order=nombre.asc')||[];
+      PARQUES=parquesData.map(p=>p.nombre);
+    }catch(e){}
+    document.getElementById('rev-nombre').textContent=currentUser.nombre;
+    document.getElementById('rp-parque').innerHTML=parqueOpts();
+    document.getElementById('rp-fecha').value=new Date().toISOString().split('T')[0];
+    show('screen-revisor');loadMisRev();
+  }
+}
+function pedirLogout(){document.getElementById('modal-logout').classList.add('show')}
+function cerrarModal(){document.getElementById('modal-logout').classList.remove('show')}
+async function confirmarLogout(){cerrarModal();await authSignOut();localStorage.removeItem('pu');currentUser=null;show('screen-login')}
+function doLogout(){pedirLogout()} // alias por compatibilidad
+
+function switchPanel(panel,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  ['resumen','revision','asignar','usuarios','parques'].forEach(p=>{
+    const d=document.getElementById('panel-'+p);
+    if(d)d.style.display=p===panel?'flex':'none';
+  });
+  if(panel==='revision'){document.getElementById('cp-parque').innerHTML=parqueOpts();document.getElementById('cp-fecha').value=new Date().toISOString().split('T')[0];}
+  if(panel==='usuarios')loadUsuarios();
+  if(panel==='asignar')loadPanelAsignar();
+  if(panel==='parques')loadParques();
+}
+
+async function loadDashboard(){
+  loader(true);
+  try{
+    // Cargar parques desde Supabase y revisiones
+    const [parquesData, revData]=await Promise.all([
+      sb('parques?select=*&order=nombre.asc'),
+      sb('revisiones?select=*&order=created_at.desc')
+    ]);
+    PARQUES=(parquesData||[]).map(p=>p.nombre);
+    allRev=revData||[];
+    renderDashboard();
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
+
+function estadoP(p){
+  const revs=allRev.filter(r=>r.parque===p);
+  if(!revs.length) return 'sin-revision';
+  const u=revs[0];
+  // Si la revisión más reciente está marcada como pendiente manualmente → sin-revision
+  if(u.pendiente===true) return 'sin-revision';
+  // Si está archivada (resuelta) → ok
+  if(u.archivada===true) return 'ok';
+  // S7 es la fuente de verdad — lo que marcó explícitamente el revisor
+  if(u.s7_riesgo_grave===true) return 'grave';
+  if(u.s7_riesgo_potencial===true) return 'urgente';
+  // Si no marcó S7, inferir de incidencias objetivamente graves
+  if(u.s1_residuos_peligrosos===true || u.s5_deterioro===true) return 'grave';
+  // Inferir urgente de incidencias moderadas solo si no hay valoración explícita
+  if(u.s7_sin_riesgo!==true && (
+    u.s2_degradacion===true || u.s3_aristas===true ||
+    u.s5_aristas===true || u.s5_estable===true ||
+    u.s8_reparacion_inmediata===true || u.s8_precintado===true || u.s8_retirada===true
+  )) return 'urgente';
+  return 'ok';
+}
+
+function toggleSort(){
+  sortOrder=sortOrder==='recientes'?'az':'recientes';
+  document.getElementById('sort-icon').textContent=sortOrder==='recientes'?'↓':'A';
+  document.getElementById('sort-label').textContent=sortOrder==='recientes'?'Recientes':'A–Z';
+  renderDashboard();
+}
+
+function renderDashboard(){
+  const graves=PARQUES.filter(p=>estadoP(p)==='grave').length;
+  const urgentes=PARQUES.filter(p=>estadoP(p)==='urgente').length;
+  const revisados=PARQUES.filter(p=>estadoP(p)!=='sin-revision').length;
+  document.getElementById('st-graves').textContent=graves;
+  document.getElementById('st-urgentes').textContent=urgentes;
+  document.getElementById('st-revisados').textContent=`${revisados}/${PARQUES.length}`;
+
+  const query=(document.getElementById('buscador')?.value||'').toLowerCase().trim();
+  let lista=PARQUES.filter(p=>filtroActivo==='todos'||estadoP(p)===filtroActivo);
+  if(query) lista=lista.filter(p=>p.toLowerCase().includes(query));
+
+  if(sortOrder==='recientes'){
+    lista.sort((a,b)=>{
+      const ra=allRev.find(r=>r.parque===a);
+      const rb=allRev.find(r=>r.parque===b);
+      if(!ra&&!rb)return 0; if(!ra)return 1; if(!rb)return -1;
+      return new Date(rb.fecha)-new Date(ra.fecha);
+    });
+  } else {
+    lista.sort((a,b)=>a.localeCompare(b,'es'));
+  }
+
+  const lbl=document.getElementById('list-count');
+  if(query) lbl.textContent=`${lista.length} resultado${lista.length!==1?'s':''} para "${query}"`;
+  else lbl.textContent=`Parques municipales · ${lista.length}`;
+
+  const list=document.getElementById('parque-list');
+  if(!lista.length){
+    list.innerHTML=query
+      ?`<div class="empty"><div class="empty-icon">🔍</div>Sin resultados para "${query}"</div>`
+      :'<div class="empty"><div class="empty-icon">✓</div>Sin parques en esta categoría</div>';
+    return;
+  }
+  const etiq={grave:'⚠ Grave',urgente:'🔶 Urgente',ok:'✓ Correcto','sin-revision':'○ Sin revisar'};
+  // Store lista in a module-level map so the click handler can retrieve by index
+  window._dashLista=lista;
+  list.innerHTML=lista.map((p,i)=>{
+    const est=estadoP(p);const rev=allRev.find(r=>r.parque===p);
+    const nombre=query?resaltarQuery(p,query):p;
+    return`<div class="parque-row" onclick="verDetalle(window._dashLista[${i}])">
+      <div class="p-dot ${est}"></div>
+      <div style="flex:1;min-width:0"><div class="p-name">${nombre}</div><div class="p-meta">${rev?fmtF(rev.fecha):'Sin revisiones'} · ${etiq[est]}</div></div>
+      <div class="p-arrow">›</div>
+    </div>`;
+  }).join('');
+}
+
+function resaltarQuery(texto,q){
+  const idx=texto.toLowerCase().indexOf(q);
+  if(idx===-1)return texto;
+  return texto.slice(0,idx)+`<mark style="background:#fff3cd;border-radius:2px;padding:0 1px">${texto.slice(idx,idx+q.length)}</mark>`+texto.slice(idx+q.length);
+}
+
+function setFiltro(f,el){filtroActivo=f;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderDashboard()}
+
+let _revsDetalle={};
+async function verDetalle(parque){
+  document.getElementById('det-titulo').textContent=parque;
+  show('screen-detalle');
+  const body=document.getElementById('det-body');
+  body.innerHTML='<div class="empty"><div class="empty-icon">⏳</div>Cargando...</div>';
+  // Cargar TODAS las revisiones del parque (incluidas archivadas)
+  let revs;
+  try{ revs=await sb(`revisiones?parque=eq.${encodeURIComponent(parque)}&select=*&order=created_at.desc`)||[]; }
+  catch(e){ body.innerHTML=`<div class="empty">Error: ${e.message}</div>`; return; }
+
+  if(!revs.length){
+    document.getElementById('det-sub').textContent='Sin revisiones';
+    body.innerHTML='<div class="empty"><div class="empty-icon">📋</div>Sin revisiones aún para este parque</div>';
+    return;
+  }
+  // Guardar en mapa para acceso seguro desde onclick
+  _revsDetalle={};
+  revs.forEach(r=>{ _revsDetalle[r.id]=r; });
+
+  // Revisión más reciente (archivada o no)
+  const u=revs[0];
+  // Revisión activa = la más reciente NO archivada (para mostrar deficiencias vigentes)
+  const activa=revs.find(r=>!r.archivada&&r.pendiente!==true)||null;
+
+  document.getElementById('det-sub').textContent='Última: '+fmtF(u.fecha)+' · '+(u.revisor_nombre||'');
+
+  // Si el parque está limpio (archivado/resuelto o pendiente), no mostramos deficiencias antiguas
+  const estadoActual = estadoP(parque);
+  const estaLimpio = estadoActual==='ok' || estadoActual==='sin-revision';
+
+  const defs=[];
+  if(activa && !estaLimpio){
+    if(activa.s7_riesgo_grave===true)       defs.push({t:'grave',  tx:'Valoración global: Riesgo grave — cierre/precintado inmediato'});
+    if(activa.s1_residuos_peligrosos===true) defs.push({t:'grave',  tx:'Residuos peligrosos en el entorno (cristales, jeringuillas…)'});
+    if(activa.s5_deterioro===true)           defs.push({t:'grave',  tx:'Deterioro peligroso en estructuras de juego'});
+    if(activa.s5_atrapamientos===true)       defs.push({t:'grave',  tx:'Riesgo de atrapamiento de cuerpo o ropa detectado'});
+    if(activa.s7_riesgo_potencial===true)    defs.push({t:'urgente',tx:'Valoración global: Riesgo potencial — reparación urgente'});
+    if(activa.s7_precintado===true||activa.s8_precintado===true) defs.push({t:'urgente',tx:'Zona o equipo precintado'});
+    if(activa.s8_reparacion_inmediata===true) defs.push({t:'urgente',tx:'Se requirió reparación inmediata in situ'});
+    if(activa.s8_retirada===true)             defs.push({t:'urgente',tx:'Equipo retirado'});
+    if(activa.s2_degradacion===true)          defs.push({t:'urgente',tx:'Degradación del pavimento amortiguador'});
+    if(activa.s3_aristas===true)              defs.push({t:'urgente',tx:'Aristas cortantes o bordes peligrosos en el vallado'});
+    if(activa.s5_aristas===true)              defs.push({t:'urgente',tx:'Aristas cortantes en juegos'});
+    if(activa.s5_estable===true)              defs.push({t:'urgente',tx:'Estructura inestable o mal anclada'});
+    if(activa.s5_tornilleria===true)          defs.push({t:'urgente',tx:'Tornillería expuesta o accesible'});
+    if(activa.s7_sin_riesgo===true)           defs.push({t:'ok',    tx:'Sin riesgo inmediato — mantenimiento programado'});
+    if(activa.s8_reparacion_futura===true)    defs.push({t:'ok',    tx:'Reparación programada para próximas fechas'});
+    if(activa.s8_piezas===true)              defs.push({t:'ok',    tx:'Piezas de repuesto solicitadas'});
+    if(activa.s1_residuos===true)            defs.push({t:'ok',    tx:'Residuos en el entorno (hojas, basura)'});
+    if(activa.s1_hierba===true)              defs.push({t:'ok',    tx:'Hierba alta o chupones en la zona'});
+    if(activa.s1_drenaje===true)             defs.push({t:'ok',    tx:'Drenaje deficiente o charcos'});
+    if(activa.s2_falta_material===true)      defs.push({t:'ok',    tx:'Falta material amortiguador en zonas de caída'});
+    if(activa.s3_corrosion===true)           defs.push({t:'ok',    tx:'Corrosión en el vallado'});
+    if(activa.s3_pintura===true)             defs.push({t:'ok',    tx:'Vallado necesita repintar'});
+    if(activa.s4_ausencia===true)            defs.push({t:'ok',    tx:'Falta cartelería obligatoria'});
+    if(activa.s4_pintadas===true)            defs.push({t:'ok',    tx:'Pintadas en cartelería'});
+    if(activa.s5_pintadas===true)            defs.push({t:'ok',    tx:'Pintadas en juegos'});
+  }
+
+  let defHTML, obsHTML;
+  if(estadoActual==='sin-revision'){
+    // Pendiente de revisión — panel neutro
+    defHTML='<div class="def-row"><span class="badge" style="background:#fff8e6;color:#7a5500;border:1px solid #f5d87a">⏳ PENDIENTE</span><span>Parque pendiente de revisión</span></div>';
+    obsHTML='<div class="obs-empty">Sin revisión activa</div>';
+  } else if(estadoActual==='ok'){
+    // Limpio — mostrar estado positivo, sin datos de la revisión archivada
+    const resueltoEn=u.resuelta_en?` · ${fmtF(u.resuelta_en.split('T')[0])}`:'';
+    const resueltoP=u.resuelta_por?` por ${u.resuelta_por}`:'';
+    defHTML=`<div class="def-row"><span class="badge ok">✓ OK</span><span>Sin incidencias activas${resueltoP}${resueltoEn}</span></div>`;
+    obsHTML='<div class="obs-empty">Sin observaciones pendientes</div>';
+  } else {
+    // Tiene incidencias activas — mostrar normalmente
+    defHTML=defs.length
+      ? defs.map(d=>`<div class="def-row"><span class="badge ${d.t}">${d.t==='grave'?'⚠ GRAVE':d.t==='urgente'?'🔶 URG':'ℹ INFO'}</span><span>${d.tx}</span></div>`).join('')
+      : '<div class="def-row"><span class="badge ok">✓ OK</span><span>Sin deficiencias en la última revisión</span></div>';
+    const obsArr=[];['s1','s2','s3','s4','s5','s7','s8'].forEach(s=>{if(activa&&activa[s+'_observaciones'])obsArr.push({s:s.toUpperCase(),t:activa[s+'_observaciones']});});
+    obsHTML=obsArr.length
+      ? obsArr.map(o=>`<div class="obs-block"><span class="obs-sec-badge">${o.s}</span><p class="obs-block-text">${o.t}</p></div>`).join('')
+      : '<div class="obs-empty">Sin observaciones registradas</div>';
+  }
+
+  // Botones de acción
+  const tieneIncidencias=defs.some(d=>d.t==='grave'||d.t==='urgente');
+  const resolverBtn=(activa&&tieneIncidencias)
+    ? `<button class="btn btn-primary" style="margin-bottom:.4rem" onclick="pedirResolverRevision('${activa.id}')">✅ Marcar incidencias como resueltas</button>`
+    : '';
+  const pendienteBtn=(estadoActual==='ok')
+    ? `<button class="btn btn-ghost" style="margin-bottom:.4rem;font-size:.8rem" onclick="pedirMarcarPendiente('${u.id}')">⟳ Marcar como pendiente de revisión</button>`
+    : '';
+
+  const histHTML=revs.map(r=>`
+    <div class="hist-row ${r.archivada?'rev-resuelta':''}" onclick="verRevisionById('${r.id}')">
+      <div style="flex:1;min-width:0">
+        <div class="hist-fecha">${fmtF(r.fecha)}</div>
+        <div class="hist-revisor">${r.revisor_nombre||'Sin nombre'}${r.resuelta?' · ✅ resuelta':''}</div>
+      </div>
+      <div style="display:flex;gap:.3rem;align-items:center">
+        ${r.archivada?'<span class="badge-resuelta">✅</span>':r.s7_riesgo_grave?'<span class="badge grave">⚠</span>':r.s7_riesgo_potencial?'<span class="badge urgente">🔶</span>':'<span class="badge ok">✓</span>'}
+        <span style="color:var(--border)">›</span>
+      </div>
+    </div>`).join('');
+
+  body.innerHTML=`
+    ${resolverBtn}
+    ${pendienteBtn}
+    <div class="det-meta-row">
+      <div class="det-col">
+        <div class="det-col-hdr">Deficiencias</div>
+        <div class="det-col-body">${defHTML}</div>
+      </div>
+      <div class="det-col">
+        <div class="det-col-hdr">Observaciones</div>
+        <div class="det-col-body">${obsHTML}</div>
+      </div>
+    </div>
+    <div class="card"><div class="card-header">Historial · ${revs.length} revisión${revs.length!==1?'es':''}</div>${histHTML}</div>`;
+}
+
+function verRevisionById(id){
+  const r=_revsDetalle[id];
+  if(r) verRevision(r);
+  else toast('No se pudo cargar la revisión','err');
+}
+
+function verRevision(r){
+  document.getElementById('rd-titulo').textContent=r.parque;
+  document.getElementById('rd-sub').textContent=fmtF(r.fecha)+' · '+(r.revisor_nombre||'');
+  show('screen-rd');
+  const secs=[
+    {t:'1. Limpieza y entorno',cs:[
+      ['s1_residuos','Residuos en el entorno'],
+      ['s1_residuos_peligrosos','Residuos peligrosos'],
+      ['s1_hierba','Hierba alta o chupones'],
+      ['s1_drenaje','Drenaje deficiente'],
+      ['s1_otros','Otros problemas'],
+    ],obs:'s1_observaciones',prob:true},
+    {t:'2. Pavimento',cs:[
+      ['s2_falta_material','Falta material amortiguador'],
+      ['s2_degradacion','Degradación o hundimientos'],
+      ['s2_otros','Otros problemas'],
+    ],obs:'s2_observaciones',extra:r.s2_tipo_pavimento?'Tipo: '+r.s2_tipo_pavimento:null,prob:true},
+    {t:'3. Vallado',cs:[
+      ['s3_estable','Inestable o mal anclado'],
+      ['s3_aristas','Aristas cortantes'],
+      ['s3_falta_tramos','Faltan tramos'],
+      ['s3_corrosion','Corrosión visible'],
+      ['s3_pintura','Necesita repintar'],
+      ['s3_otros','Otros problemas'],
+    ],obs:'s3_observaciones',prob:true},
+    {t:'4. Cartelería',cs:[
+      ['s4_estable','Inestable o mal anclada'],
+      ['s4_aristas','Aristas cortantes'],
+      ['s4_ausencia','Falta cartelería'],
+      ['s4_corrosion','Corrosión visible'],
+      ['s4_pintadas','Pintadas/vandalismo'],
+      ['s4_otros','Otros problemas'],
+    ],obs:'s4_observaciones',prob:true},
+    {t:'5. Estado general de juegos',cs:[
+      ['s5_estable','Estructura inestable'],
+      ['s5_aristas','Aristas cortantes'],
+      ['s5_tornilleria','Tornillería expuesta'],
+      ['s5_atrapamientos','Riesgo de atrapamiento'],
+      ['s5_deterioro','Deterioro peligroso'],
+      ['s5_pintadas','Pintadas/vandalismo'],
+      ['s5_otros','Otros problemas'],
+    ],obs:'s5_observaciones',prob:true},
+    {t:'7. Valoración global del riesgo',cs:[
+      ['s7_riesgo_grave','🔴 Riesgo grave'],
+      ['s7_riesgo_potencial','🟠 Riesgo potencial'],
+      ['s7_sin_riesgo','🟢 Sin riesgo inmediato'],
+    ],obs:'s7_observaciones',prob:false},
+    {t:'8. Medidas adoptadas',cs:[
+      ['s8_ninguna','Ninguna'],
+      ['s8_reparacion_inmediata','Reparación inmediata'],
+      ['s8_reparacion_futura','Reparación futura'],
+      ['s8_precintado','Precintado'],
+      ['s8_retirada','Equipo retirado'],
+      ['s8_piezas','Piezas solicitadas'],
+      ['s8_otras','Otras medidas'],
+    ],obs:'s8_observaciones',prob:false},
+  ];
+  const body=document.getElementById('rd-body');
+
+  // Render solo filas con valor real (true/false), omitir las que son null/undefined (—)
+  function renderSec(sec){
+    const rows=sec.cs.map(([k,l])=>{
+      const v=r[k];
+      if(v===null||v===undefined) return ''; // omitir no respondidos
+      const marcado=v===true;
+      const d=marcado?'SÍ':'NO';
+      let c='';
+      if(marcado && sec.prob) c='alerta';
+      else if(!marcado && sec.prob) c='si';
+      else if(marcado && !sec.prob) c='si';
+      return`<div class="rd-row"><span>${l}</span><span class="rd-val ${c}">${d}</span></div>`;
+    }).join('');
+    const hasContent=rows||sec.extra||r[sec.obs];
+    if(!hasContent) return `<div class="card"><div class="card-header">${sec.t}</div><div class="card-body"><div class="rd-row"><span style="color:var(--muted);font-style:italic">Sin datos registrados</span></div></div></div>`;
+    return`<div class="card"><div class="card-header">${sec.t}</div><div class="card-body">
+      ${rows}
+      ${sec.extra?`<div class="rd-row"><span style="color:var(--muted)">${sec.extra}</span></div>`:''}
+      ${r[sec.obs]?`<div class="obs-text">💬 ${r[sec.obs]}</div>`:''}
+    </div></div>`;
+  }
+
+  body.innerHTML=secs.map(renderSec).join('')+
+  (r.s6_equipos&&typeof r.s6_equipos==='object'&&Object.keys(r.s6_equipos).length?`<div class="card"><div class="card-header">6. Equipos</div><div class="card-body">
+    ${Object.entries(r.s6_equipos).map(([eq,pts])=>pts&&typeof pts==='object'?Object.entries(pts).filter(([,v])=>v!==null&&v!==undefined).map(([p,v])=>{const d=v===true?'SÍ':'NO';const c=v===true?'alerta':'si';return`<div class="rd-row"><span>${eq} · ${p}</span><span class="rd-val ${c}">${d}</span></div>`;}).join(''):'' ).join('')}
+  </div></div>`:'');
+}
+
+function irAFichaRevisor(){
+  const p=document.getElementById('rp-parque').value;
+  const f=document.getElementById('rp-fecha').value;
+  if(!p){toast('Selecciona un parque','err');return;}
+  fichaData={parque:p,fecha:f,revisor_nombre:currentUser.nombre};fichaReturn='revisor';
+  document.getElementById('ficha-titulo').textContent=p;
+  document.getElementById('ficha-sub').textContent=fmtF(f);
+  document.getElementById('ficha-back').onclick=()=>show('screen-revisor');
+  buildFicha();show('screen-ficha');
+}
+
+function irAFichaCoordi(){
+  const p=document.getElementById('cp-parque').value;
+  const f=document.getElementById('cp-fecha').value;
+  if(!p){toast('Selecciona un parque','err');return;}
+  fichaData={parque:p,fecha:f,revisor_nombre:currentUser.nombre};fichaReturn='coordinador';
+  document.getElementById('ficha-titulo').textContent=p;
+  document.getElementById('ficha-sub').textContent=fmtF(f);
+  document.getElementById('ficha-back').onclick=()=>show('screen-home');
+  buildFicha();show('screen-ficha');
+}
+
+async function loadMisRev(){
+  try{
+    const [todas, asigs]=await Promise.all([
+      sb('revisiones?select=*&order=created_at.desc')||[],
+      sb(`asignaciones?revisor_id=eq.${currentUser.id}&completada=eq.false&select=*&order=created_at.asc`)||[]
+    ]);
+    const mias=(todas||[]).filter(r=>r.revisor_nombre===currentUser.nombre).slice(0,6);
+
+    // Banners de asignaciones pendientes
+    const banner=document.getElementById('asig-revisor-banner');
+    if(asigs&&asigs.length){
+      banner.innerHTML=asigs.map(a=>`
+        <div class="asig-banner">
+          <div class="asig-banner-icon">📋</div>
+          <div class="asig-banner-content">
+            <div class="asig-banner-title">Revisión asignada por ${a.coordinador_nombre||'el coordinador'}</div>
+            <div class="asig-banner-parque">${a.parque}</div>
+            ${a.nota?`<div class="asig-banner-nota">"${a.nota}"</div>`:''}
+          </div>
+          <button class="asig-banner-btn" onclick="irAFichaDesdeAsignacion('${a.id}','${a.parque.replace(/'/g,"\\'")}')">Ir →</button>
+        </div>`).join('');
+    } else {
+      banner.innerHTML='';
+    }
+
+    const c=document.getElementById('mis-rev');
+    if(!mias.length){c.innerHTML='<div class="empty"><div class="empty-icon">📋</div>Sin revisiones aún</div>';return;}
+    c.innerHTML=mias.map(r=>`<div class="hist-row" style="cursor:default">
+      <div style="flex:1;min-width:0"><div class="hist-fecha" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.parque}</div><div class="hist-revisor">${fmtF(r.fecha)}</div></div>
+      ${r.archivada?'<span class="badge-resuelta">✅</span>':r.s7_riesgo_grave?'<span class="badge grave">⚠ Grave</span>':r.s7_riesgo_potencial?'<span class="badge urgente">🔶 Urgente</span>':'<span class="badge ok">✓ OK</span>'}
+    </div>`).join('');
+  }catch(e){}
+}
+
+function irAFichaDesdeAsignacion(asigId, parque){
+  const fecha=new Date().toISOString().split('T')[0];
+  document.getElementById('rp-parque').value=parque;
+  fichaData={parque,fecha,revisor_nombre:currentUser.nombre,_asig_id:asigId};
+  fichaReturn='revisor';
+  document.getElementById('ficha-titulo').textContent=parque;
+  document.getElementById('ficha-sub').textContent=fmtF(fecha);
+  document.getElementById('ficha-back').onclick=()=>show('screen-revisor');
+  buildFicha(); show('screen-ficha');
+}
+
+// ── ASIGNACIONES (COORDINADOR) ────────────────────────
+async function loadPanelAsignar(){
+  // Cargar revisores
+  try{
+    const users=await sb('perfiles?rol=eq.revisor&select=*&order=nombre.asc')||[];
+    const sel=document.getElementById('asig-revisor');
+    sel.innerHTML='<option value="">Selecciona un revisor...</option>'+
+      users.map(u=>`<option value="${u.id}" data-nombre="${u.nombre}">${u.nombre}</option>`).join('');
+  }catch(e){}
+  document.getElementById('asig-parque').innerHTML=parqueOpts();
+  loadAsignaciones();
+}
+
+async function loadAsignaciones(){
+  const el=document.getElementById('lista-asignaciones');
+  el.innerHTML='<div class="empty"><div class="empty-icon">⏳</div>Cargando...</div>';
+  try{
+    const asigs=await sb('asignaciones?completada=eq.false&select=*&order=created_at.desc')||[];
+    if(!asigs.length){el.innerHTML='<div class="empty"><div class="empty-icon">✓</div>Sin asignaciones activas</div>';return;}
+    el.innerHTML=asigs.map(a=>`
+      <div class="asig-row">
+        <div class="asig-info">
+          <div class="asig-parque">${a.parque}</div>
+          <div class="asig-meta">→ ${a.revisor_nombre||'Sin asignar'}${a.nota?' · "'+a.nota+'"':''}</div>
+        </div>
+        <button class="asig-done-btn" onclick="completarAsignacion('${a.id}')">✓ Hecha</button>
+        <button class="asig-del-btn" onclick="eliminarAsignacion('${a.id}')">✕</button>
+      </div>`).join('');
+  }catch(e){el.innerHTML=`<div class="empty">Error: ${e.message}</div>`;}
+}
+
+async function crearAsignacion(){
+  const selR=document.getElementById('asig-revisor');
+  const revisorId=selR.value;
+  const revisorNombre=selR.options[selR.selectedIndex]?.dataset.nombre||'';
+  const parque=document.getElementById('asig-parque').value;
+  const nota=document.getElementById('asig-nota').value.trim();
+  if(!revisorId||!parque){toast('Selecciona revisor y parque','err');return;}
+  loader(true);
+  try{
+    await sb('asignaciones',{method:'POST',prefer:'return=minimal',body:{
+      parque,revisor_id:revisorId,revisor_nombre:revisorNombre,
+      coordinador_nombre:currentUser.nombre,nota:nota||null
+    }});
+    toast('Asignación enviada a '+revisorNombre,'ok');
+    document.getElementById('asig-nota').value='';
+    loadAsignaciones();
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
+
+async function completarAsignacion(id){
+  loader(true);
+  try{
+    await sb(`asignaciones?id=eq.${id}`,{method:'PATCH',prefer:'return=minimal',body:{completada:true}});
+    toast('Asignación marcada como completada','ok');
+    loadAsignaciones();
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
+
+async function eliminarAsignacion(id){
+  loader(true);
+  try{
+    await sb(`asignaciones?id=eq.${id}`,{method:'DELETE'});
+    loadAsignaciones();
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
+
+// ── RESOLVER REVISIÓN ─────────────────────────────────
+let _revAResolver=null;
+
+function pedirResolverRevision(revId){
+  _revAResolver=revId;
+  document.getElementById('modal-resolver').classList.add('show');
+  document.getElementById('modal-resolver-confirm').onclick=confirmarResolver;
+}
+
+function cerrarModalResolver(){
+  document.getElementById('modal-resolver').classList.remove('show');
+  _revAResolver=null;
+}
+
+async function confirmarResolver(){
+  if(!_revAResolver)return;
+  const id=_revAResolver;
+  cerrarModalResolver();
+  loader(true);
+  try{
+    await sb(`revisiones?id=eq.${id}`,{method:'PATCH',prefer:'return=minimal',body:{
+      archivada:true,resuelta:true,
+      resuelta_en:new Date().toISOString(),
+      resuelta_por:currentUser.nombre
+    }});
+    toast('Revisión marcada como resuelta','ok');
+    // Recargar dashboard y volver
+    await loadDashboard();
+    const titulo=document.getElementById('det-titulo').textContent;
+    if(titulo) verDetalle(titulo);
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
+
+// ── MARCAR PENDIENTE ──────────────────────────────────
+let _revAPendiente=null;
+
+function pedirMarcarPendiente(revId){
+  _revAPendiente=revId;
+  document.getElementById('modal-pendiente').classList.add('show');
+  document.getElementById('modal-pendiente-confirm').onclick=confirmarPendiente;
+}
+
+function cerrarModalPendiente(){
+  document.getElementById('modal-pendiente').classList.remove('show');
+  _revAPendiente=null;
+}
+
+async function confirmarPendiente(){
+  if(!_revAPendiente)return;
+  const id=_revAPendiente;
+  cerrarModalPendiente();
+  loader(true);
+  try{
+    await sb(`revisiones?id=eq.${id}`,{method:'PATCH',prefer:'return=minimal',body:{
+      pendiente:true,
+      archivada:false
+    }});
+    toast('Parque marcado como pendiente de revisión','ok');
+    await loadDashboard();
+    const titulo=document.getElementById('det-titulo').textContent;
+    if(titulo) verDetalle(titulo);
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
+
+// ── CRUD PARQUES ─────────────────────────────────────
+let _parquesData=[]; // [{id, nombre}]
+
+async function loadParques(){
+  const el=document.getElementById('lista-parques');
+  if(!el)return;
+  el.innerHTML='<div class="empty"><div class="empty-icon">⏳</div>Cargando...</div>';
+  try{
+    _parquesData=await sb('parques?select=*&order=nombre.asc')||[];
+    document.getElementById('np-count').textContent=_parquesData.length;
+    if(!_parquesData.length){
+      el.innerHTML='<div class="empty"><div class="empty-icon">🌳</div>Sin parques. Añade el primero.</div>';
+      return;
+    }
+    window._parquesIdx=_parquesData;
+    el.innerHTML=_parquesData.map((p,i)=>`
+      <div class="usr-card">
+        <div class="usr-avatar" style="background:var(--green-lt);color:var(--green);font-size:.7rem;width:28px;height:28px">${i+1}</div>
+        <div style="flex:1;min-width:0">
+          <div class="usr-name">${p.nombre}</div>
+        </div>
+        <button class="del-btn" style="color:var(--green-mid);font-size:.85rem;padding:.2rem .5rem;margin-right:.1rem" onclick="pedirEditarParque(window._parquesIdx[${i}].id,window._parquesIdx[${i}].nombre)" title="Editar">✏️</button>
+        <button class="del-btn" onclick="pedirBorrarParque(window._parquesIdx[${i}].id,window._parquesIdx[${i}].nombre)" title="Eliminar">✕</button>
+      </div>`).join('');
+  }catch(e){el.innerHTML=`<div class="empty">Error: ${e.message}</div>`;}
+}
+
+async function crearParque(){
+  const nombre=document.getElementById('np-nombre').value.trim();
+  if(!nombre){toast('Escribe el nombre del parque','err');return;}
+  loader(true);
+  try{
+    await sb('parques',{method:'POST',prefer:'return=minimal',body:{nombre}});
+    document.getElementById('np-nombre').value='';
+    toast('Parque añadido','ok');
+    await loadParques();
+    await loadDashboard();
+  }catch(e){toast('Error: '+(e.message.includes('duplicate')?'Ya existe un parque con ese nombre':e.message),'err');}
+  finally{loader(false);}
+}
+
+// ── Editar parque ──
+let _parqueAEditar=null;
+
+function pedirEditarParque(id, nombre){
+  _parqueAEditar={id, nombre};
+  document.getElementById('ep-nombre').value=nombre;
+  document.getElementById('modal-editar-parque').classList.add('show');
+  document.getElementById('modal-editar-parque-confirm').onclick=confirmarEditarParque;
+  setTimeout(()=>document.getElementById('ep-nombre').focus(),120);
+}
+
+function cerrarModalEditarParque(){
+  document.getElementById('modal-editar-parque').classList.remove('show');
+  _parqueAEditar=null;
+}
+
+async function confirmarEditarParque(){
+  if(!_parqueAEditar)return;
+  const nuevoNombre=document.getElementById('ep-nombre').value.trim();
+  if(!nuevoNombre){toast('El nombre no puede estar vacío','err');return;}
+  if(nuevoNombre===_parqueAEditar.nombre){cerrarModalEditarParque();return;}
+  const {id, nombre:nombreViejo}=_parqueAEditar;
+  cerrarModalEditarParque();
+  loader(true);
+  try{
+    // Actualizar tabla parques
+    await sb(`parques?id=eq.${id}`,{method:'PATCH',prefer:'return=minimal',body:{nombre:nuevoNombre}});
+    // Actualizar todas las revisiones que referencian el nombre viejo
+    await sb(`revisiones?parque=eq.${encodeURIComponent(nombreViejo)}`,{method:'PATCH',prefer:'return=minimal',body:{parque:nuevoNombre}});
+    toast('Parque renombrado','ok');
+    await loadParques();
+    await loadDashboard();
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
+
+// ── Borrar parque ──
+let _parqueABorrar=null;
+
+function pedirBorrarParque(id, nombre){
+  _parqueABorrar={id, nombre};
+  document.getElementById('modal-borrar-parque-body').textContent=`¿Eliminar "${nombre}"? Se eliminarán también todas sus revisiones. Esta acción no se puede deshacer.`;
+  document.getElementById('modal-borrar-parque').classList.add('show');
+  document.getElementById('modal-borrar-parque-confirm').onclick=confirmarBorrarParque;
+}
+
+function cerrarModalBorrarParque(){
+  document.getElementById('modal-borrar-parque').classList.remove('show');
+  _parqueABorrar=null;
+}
+
+async function confirmarBorrarParque(){
+  if(!_parqueABorrar)return;
+  const {id, nombre}=_parqueABorrar;
+  cerrarModalBorrarParque();
+  loader(true);
+  try{
+    // Borrar revisiones del parque primero (FK o simplemente limpiar)
+    await sb(`revisiones?parque=eq.${encodeURIComponent(nombre)}`,{method:'DELETE'});
+    // Borrar el parque
+    await sb(`parques?id=eq.${id}`,{method:'DELETE'});
+    toast('Parque eliminado','ok');
+    await loadParques();
+    await loadDashboard();
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
+
+// ── FICHA ─────────────────────────────────────────────
+// Convención uniforme: SÍ = problema detectado (rojo) / NO = sin problema (verde)
+// Excepción: secciones 7 y 8 son de selección única (radio), sin color SÍ/NO
+// Campo "bad:true" = SÍ es problema → pill SI roja, NO verde
+// Campo "bad:false" (no usado aquí, todo es bad:true por convención nueva)
+
+function buildFicha(){
+  const secs=[
+    // S1 — todo redactado como incidencia: SÍ = hay problema
+    {id:'s1',t:'1. Limpieza y entorno',
+     note:'SÍ = incidencia detectada',
+     items:[
+      {k:'s1_residuos',          l:'Hay residuos en el entorno (hojas, basura)'},
+      {k:'s1_residuos_peligrosos',l:'Hay residuos peligrosos (cristales, jeringuillas…)'},
+      {k:'s1_hierba',            l:'Hay hierba alta o chupones que invaden la zona'},
+      {k:'s1_drenaje',           l:'El drenaje es deficiente o hay charcos'},
+      {k:'s1_otros',             l:'Otros problemas de limpieza o entorno'},
+    ],obs:'s1_observaciones'},
+
+    {id:'s2',t:'2. Pavimento amortiguador',pav:true,
+     note:'SÍ = incidencia detectada',
+     items:[
+      {k:'s2_falta_material',l:'Falta material amortiguador en zonas de caída'},
+      {k:'s2_degradacion',   l:'Hay degradación, hundimientos o pérdida de material'},
+      {k:'s2_otros',         l:'Otros problemas en el pavimento'},
+    ],obs:'s2_observaciones'},
+
+    {id:'s3',t:'3. Vallado',
+     note:'SÍ = incidencia detectada',
+     items:[
+      {k:'s3_estable',      l:'El vallado está inestable o mal anclado'},
+      {k:'s3_aristas',      l:'Hay aristas cortantes o bordes peligrosos'},
+      {k:'s3_falta_tramos', l:'Faltan tramos o baldas del vallado'},
+      {k:'s3_corrosion',    l:'Hay corrosión o degradación visible'},
+      {k:'s3_pintura',      l:'Necesita repintar (pintura deteriorada o descascarada)'},
+      {k:'s3_otros',        l:'Otros problemas en el vallado'},
+    ],obs:'s3_observaciones'},
+
+    {id:'s4',t:'4. Cartelería',
+     note:'SÍ = incidencia detectada',
+     items:[
+      {k:'s4_estable',   l:'La cartelería está inestable o mal anclada'},
+      {k:'s4_aristas',   l:'Hay aristas cortantes o bordes peligrosos en los carteles'},
+      {k:'s4_ausencia',  l:'Falta cartelería obligatoria'},
+      {k:'s4_corrosion', l:'Hay corrosión o degradación visible'},
+      {k:'s4_pintadas',  l:'Hay pintadas o vandalismo en los carteles'},
+      {k:'s4_otros',     l:'Otros problemas en la cartelería'},
+    ],obs:'s4_observaciones'},
+
+    {id:'s5',t:'5. Estado general de los juegos',
+     note:'SÍ = incidencia detectada',
+     items:[
+      {k:'s5_estable',       l:'Alguna estructura está inestable o mal anclada'},
+      {k:'s5_aristas',       l:'Hay aristas cortantes o bordes peligrosos'},
+      {k:'s5_tornilleria',   l:'Hay tornillería expuesta o accesible'},
+      {k:'s5_atrapamientos', l:'Hay riesgo de atrapamiento de cuerpo o ropa'},
+      {k:'s5_deterioro',     l:'Hay deterioro que supone un peligro real'},
+      {k:'s5_pintadas',      l:'Hay pintadas o vandalismo en los juegos'},
+      {k:'s5_otros',         l:'Otros problemas en los juegos'},
+    ],obs:'s5_observaciones'},
+
+    {id:'s6',t:'6. Revisión por equipo',equipos:true},
+
+    // S7 — selección única (radio): el revisor marca UNA sola opción
+    {id:'s7',t:'7. Valoración global del riesgo',radio:true,
+     note:'Marca solo una opción',
+     items:[
+      {k:'s7_riesgo_grave',    l:'🔴 Riesgo grave — requiere cierre o precintado inmediato'},
+      {k:'s7_riesgo_potencial',l:'🟠 Riesgo potencial — requiere reparación urgente'},
+      {k:'s7_sin_riesgo',      l:'🟢 Sin riesgo inmediato — programar mantenimiento'},
+    ],obs:'s7_observaciones'},
+
+    // S8 — selección única también
+    {id:'s8',t:'8. Medidas adoptadas',radio:true,
+     note:'Marca todas las que apliquen',
+     items:[
+      {k:'s8_ninguna',             l:'Ninguna medida adoptada'},
+      {k:'s8_reparacion_inmediata',l:'Reparación realizada en el momento'},
+      {k:'s8_reparacion_futura',   l:'Reparación programada para próximas fechas'},
+      {k:'s8_precintado',          l:'Zona o equipo precintado'},
+      {k:'s8_retirada',            l:'Equipo retirado'},
+      {k:'s8_piezas',              l:'Solicitadas piezas de repuesto'},
+      {k:'s8_otras',               l:'Otras medidas (detallar en observaciones)'},
+    ],obs:'s8_observaciones'},
+  ];
+
+  const ta_style='margin:0;width:100%;padding:.5rem .7rem;font-size:.82rem;border:1.5px solid var(--border);border-radius:8px;background:#fafaf8;font-family:inherit;resize:vertical;min-height:52px;outline:none';
+
+  document.getElementById('ficha-body').innerHTML=secs.map(sec=>{
+    if(sec.equipos) return buildEquipos();
+
+    let rows;
+    if(sec.radio){
+      // Checkboxes independientes (no exclusivos entre sí para medidas, pero para riesgo sí)
+      const exclusive = sec.id==='s7';
+      rows=sec.items.map(it=>`
+        <div class="chk-row">
+          <span class="chk-label">${it.l}</span>
+          <div class="pill-group">
+            <div class="pill radio-pill ${exclusive?'excl':''}" data-k="${it.k}" data-excl="${exclusive}" data-grp="${sec.id}" onclick="toggleRadioPill(this)">✓</div>
+          </div>
+        </div>`).join('');
+    } else {
+      // SÍ/NO: SÍ = problema (rojo), NO = correcto (verde)
+      rows=sec.items.map(it=>`
+        <div class="chk-row">
+          <span class="chk-label">${it.l}</span>
+          <div class="pill-group">
+            <div class="pill prob" data-k="${it.k}" data-v="true"  onclick="togglePill(this)">SÍ</div>
+            <div class="pill ok"   data-k="${it.k}" data-v="false" onclick="togglePill(this)">NO</div>
+          </div>
+        </div>`).join('');
+    }
+
+    const noteHTML=sec.note?`<div style="font-size:.65rem;color:var(--muted);padding:.3rem 0 .4rem;font-style:italic">${sec.note}</div>`:'';
+    const pavHTML=sec.pav?`<span class="obs-lbl">Tipo de pavimento</span><div class="pav-opts">${['Caucho','Arena','Solado','Tierra','Otro'].map(t=>`<div class="pav-pill" onclick="selPav(this,'${t}')">${t}</div>`).join('')}</div>`:'';
+
+    return`<div class="fsec" id="fsec-${sec.id}">
+      <div class="fsec-hdr" onclick="togSec('fsec-${sec.id}')"><h3>${sec.t}</h3><span class="fsec-toggle">▾</span></div>
+      <div class="fsec-body">${noteHTML}${rows}${pavHTML}
+        <span class="obs-lbl">Observaciones / notas</span>
+        <textarea style="${ta_style}" data-obs="${sec.obs}" placeholder="Escribe aquí cualquier detalle adicional..."></textarea>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('ficha-body').querySelectorAll('[data-obs]').forEach(ta=>{
+    ta.addEventListener('input',()=>{fichaData[ta.dataset.obs]=ta.value;});
+  });
+}
+
+function buildEquipos(){
+  const eqs=[
+    {id:'columpios', n:'Columpios',         p:['Asiento en mal estado','Cadenas dañadas o flojas','Ganchos/poleas defectuosos']},
+    {id:'toboganes', n:'Toboganes',          p:['Zona de inicio dañada','Superficie de deslizamiento dañada','Zona de salida inadecuada']},
+    {id:'balanceo',  n:'Juegos de balanceo', p:['Asientos dañados','Inestabilidad detectada','Anclaje o muelle defectuoso']},
+    {id:'rotatorios',n:'Juegos rotatorios',  p:['Ejes dañados o sin protección','Protecciones ausentes o deterioradas']},
+    {id:'redes',     n:'Redes / escalada',   p:['Red destensada o dañada','Anclajes flojos o deteriorados']},
+    {id:'otros_eq',  n:'Otros (tirolina, casita, túnel…)', p:['Anclaje defectuoso','Inestabilidad detectada']},
+  ];
+  // Para equipos: SÍ = problema, NO = correcto. "_existe" es especial: SÍ = hay equipo
+  const inner=eqs.map(eq=>`
+    <div class="eq-block">
+      <div class="eq-hdr" onclick="togEq('eq-${eq.id}')"><span>${eq.n}</span><span>▾</span></div>
+      <div class="eq-body" id="eq-${eq.id}" style="display:none">
+        <div class="chk-row">
+          <span class="chk-label" style="font-size:.72rem;color:var(--muted);font-style:italic">¿Existe este equipo en el parque?</span>
+          <div class="pill-group">
+            <div class="pill ok"   data-eq="${eq.id}" data-pt="_existe" data-v="true"  onclick="toggleEqPill(this)">SÍ</div>
+            <div class="pill prob" data-eq="${eq.id}" data-pt="_existe" data-v="false" onclick="toggleEqPill(this)">NO</div>
+          </div>
+        </div>
+        <div class="eq-prob-rows" id="eqrows-${eq.id}">
+          <div style="font-size:.65rem;color:var(--muted);padding:.25rem 0 .35rem;font-style:italic">SÍ = problema detectado</div>
+          ${eq.p.map(p=>`<div class="chk-row">
+            <span class="chk-label">${p}</span>
+            <div class="pill-group">
+              <div class="pill prob" data-eq="${eq.id}" data-pt="${p}" data-v="true"  onclick="toggleEqPill(this)">SÍ</div>
+              <div class="pill ok"   data-eq="${eq.id}" data-pt="${p}" data-v="false" onclick="toggleEqPill(this)">NO</div>
             </div>
-        </div> <!-- end of container -->
-    </section> <!-- end of testimonial section -->
-    
-    <!-- blog section -->
-    <section class="section" id="blog">
-        <!-- container -->
-        <div class="container text-center">
-            <p class="section-subtitle">Recent Posts?</p>
-            <h6 class="section-title mb-6">Blog</h6>
-            <!-- blog-wrapper -->
-            <div class="blog-card">
-                <div class="blog-card-header">
-                    <img src="assets/imgs/img-1.jpg" class="blog-card-img" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
-                </div>
-                <div class="blog-card-body">
-                    <h5 class="blog-card-title">Consectetur adipisicing elit</h6>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`).join('');
 
-                    <p class="blog-card-caption">
-                        <a href="#">By: Admin</a>
-                        <a href="#"><i class="ti-heart text-danger"></i> 234</a>
-                        <a href="#"><i class="ti-comment"></i> 123</a>
-                    </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet nesciunt qui sit velit delectus voluptates, repellat ipsum culpa id deleniti. Rerum debitis facilis accusantium neque numquam mollitia modi quasi distinctio.</p>
+  return`<div class="fsec" id="fsec-s6">
+    <div class="fsec-hdr" onclick="togSec('fsec-s6')"><h3>6. Revisión por equipo</h3><span class="fsec-toggle">▾</span></div>
+    <div class="fsec-body">${inner}</div>
+  </div>`;
+}
 
-                    <p><b>Necessitatibus nihil impedit! Ex nisi eveniet, dolor aliquid consequuntur repudiandae.</b></p>
-                    <p>Magnam in repellat enim harum omnis aperiam! Explicabo illo, commodi, dolor blanditiis cupiditate harum nisi vero accusamus laudantium voluptatibus dolores quae obcaecati.</p>
+function togSec(id){document.getElementById(id).classList.toggle('collapsed')}
+function togEq(id){const e=document.getElementById(id);e.style.display=e.style.display==='none'?'block':'none'}
 
-                    <a href="#" class="blog-card-link">Read more <i class="ti-angle-double-right"></i></a>
-                </div>
-            </div><!-- end of blog wrapper -->
+function togglePill(el){
+  el.parentElement.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  fichaData[el.dataset.k]=el.dataset.v==='true';
+}
 
-            <!-- blog-wrapper -->
-            <div class="blog-card">
-                <div class="blog-card-header">
-                    <img src="assets/imgs/img-2.jpg" class="blog-card-img" alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
-                </div>
-                <div class="blog-card-body">
-                    <h5 class="blog-card-title">Explicabo illo</h6>
+function toggleRadioPill(el){
+  const grp=el.dataset.grp;
+  if(el.dataset.excl==='true'){
+    // Para riesgo: exclusivo, desmarcar todos del grupo
+    document.querySelectorAll(`.radio-pill[data-grp="${grp}"]`).forEach(p=>{
+      p.classList.remove('on');
+      fichaData[p.dataset.k]=false;
+    });
+  }
+  const wasOn=el.classList.contains('on');
+  if(wasOn){el.classList.remove('on');fichaData[el.dataset.k]=false;}
+  else{el.classList.add('on');fichaData[el.dataset.k]=true;}
+}
 
-                    <p class="blog-card-caption">
-                        <a href="#">By: Admin</a>
-                        <a href="#"><i class="ti-heart text-danger"></i> 456</a>
-                        <a href="#"><i class="ti-comment"></i> 264</a>
-                    </p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit excepturi laborum enim, vitae ipsam atque eum, ad iusto consequuntur voluptas, esse doloribus. Perferendis porro quisquam vitae exercitationem aliquid, minus eos laborum repudiandae, cumque debitis iusto omnis praesentium? Laborum placeat sit adipisci illum tempore maxime, esse qui quae? Molestias excepturi corporis similique doloribus. Esse vitae earum architecto nulla non dolores illum at perspiciatis quod, et deleniti cupiditate reiciendis harum facere, delectus eum commodi soluta distinctio sit repudiandae possimus sunt. Ipsum, rem.</p>
+function toggleEqPill(el){
+  el.parentElement.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  if(!fichaData.s6_equipos)fichaData.s6_equipos={};
+  if(!fichaData.s6_equipos[el.dataset.eq])fichaData.s6_equipos[el.dataset.eq]={};
+  fichaData.s6_equipos[el.dataset.eq][el.dataset.pt]=el.dataset.v==='true';
+}
 
-                    <a href="#" class="blog-card-link">Read more <i class="ti-angle-double-right"></i></a>
-                </div>
-            </div><!-- end of blog wrapper -->
+function selPav(el,t){
+  document.querySelectorAll('.pav-pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');fichaData.s2_tipo_pavimento=t;
+}
 
-        </div><!-- end of container -->
-    </section><!-- end of blog section -->
+async function enviarFicha(){
+  const btn=document.getElementById('btn-enviar');
+  btn.disabled=true;btn.textContent='Enviando...';loader(true);
+  try{
+    const payload={...fichaData};
+    const asigId=payload._asig_id;
+    delete payload._asig_id;
+    if(!payload.s6_equipos)payload.s6_equipos={};
+    await sb('revisiones',{method:'POST',prefer:'return=minimal',body:payload});
+    // Si venía de una asignación, marcarla como completada
+    if(asigId){
+      await sb(`asignaciones?id=eq.${asigId}`,{method:'PATCH',prefer:'return=minimal',body:{completada:true}});
+    }
+    toast('¡Revisión enviada!','ok');
+    setTimeout(()=>{if(fichaReturn==='coordinador'){show('screen-home');loadDashboard();}else{show('screen-revisor');loadMisRev();}},1400);
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{btn.disabled=false;btn.textContent='Enviar revisión ✓';loader(false);}
+}
 
-    <!-- contact section -->
-    <section class="section" id="contact">
-        <div class="container text-center">
-            <p class="section-subtitle">How can you communicate?</p>
-            <h6 class="section-title mb-5">Contact Me</h6>
-            <!-- contact form -->
-            <form action="" class="contact-form col-md-10 col-lg-8 m-auto">
-                <div class="form-row">
-                    <div class="form-group col-sm-6">
-                        <input type="text" size="50" class="form-control" placeholder="Your Name" required>                 
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <input type="email" class="form-control" placeholder="Enter Email"requried>                 
-                    </div>
-                    <div class="form-group col-sm-12">
-                        <textarea name="comment" id="comment" rows="6"   class="form-control" placeholder="Write Something"></textarea>
-                    </div>
-                    <div class="form-group col-sm-12 mt-3">
-                        <input type="submit" value="Send Message" class="btn btn-outline-primary rounded">                  
-                    </div>
-                </div>  
-            </form><!-- end of contact form -->
-        </div><!-- end of container -->
-    </section><!-- end of contact section -->
+async function loadUsuarios(){
+  const el=document.getElementById('lista-usuarios');
+  el.innerHTML='<div class="empty"><div class="empty-icon">⏳</div>Cargando...</div>';
+  try{
+    const users=await sb('perfiles?select=*&order=nombre.asc')||[];
+    if(!users.length){el.innerHTML='<div class="empty"><div class="empty-icon">👤</div>Sin usuarios</div>';return;}
+    window._usuariosIdx=users;
+    el.innerHTML=users.map((u,i)=>`<div class="usr-card">
+      <div class="usr-avatar ${u.rol==='coordinador'?'coord':''}">${u.nombre.charAt(0).toUpperCase()}</div>
+      <div style="flex:1;min-width:0"><div class="usr-name">${u.nombre}</div><div class="usr-meta">${u.email||''}</div></div>
+      <span class="usr-badge ${u.rol}">${u.rol}</span>
+      ${u.id!==currentUser.id?`<button class="del-btn" onclick="pedirEliminarUsuario(window._usuariosIdx[${i}].id,window._usuariosIdx[${i}].nombre)">✕</button>`:''}
+    </div>`).join('');
+  }catch(e){el.innerHTML=`<div class="empty">Error: ${e.message}</div>`;}
+}
 
-    <!-- footer -->
-    <div class="container">
-        <footer class="footer">       
-            <p class="mb-0">Copyright <script>document.write(new Date().getFullYear())</script> &copy; <a href="http://www.devcrud.com">DevCRUD</a></p>
-            <div class="social-links text-right m-auto ml-sm-auto">
-                <a href="javascript:void(0)" class="link"><i class="ti-facebook"></i></a>
-                <a href="javascript:void(0)" class="link"><i class="ti-twitter-alt"></i></a>
-                <a href="javascript:void(0)" class="link"><i class="ti-google"></i></a>
-                <a href="javascript:void(0)" class="link"><i class="ti-pinterest-alt"></i></a>
-                <a href="javascript:void(0)" class="link"><i class="ti-instagram"></i></a>
-                <a href="javascript:void(0)" class="link"><i class="ti-rss"></i></a>
-            </div>
-        </footer>
-    </div> <!-- end of page footer -->
-	
-	<!-- core  -->
-    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
-    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+async function crearUsuario(){
+  const nombre=document.getElementById('nu-n').value.trim();
+  const email=document.getElementById('nu-u').value.trim().toLowerCase();
+  const password=document.getElementById('nu-p').value;
+  const rol=document.getElementById('nu-r').value;
+  if(!nombre||!email||!password){toast('Rellena todos los campos','err');return;}
+  if(password.length<6){toast('Contraseña mínimo 6 caracteres','err');return;}
+  loader(true);
+  try{
+    // 1. Crear usuario en Auth
+    const authData=await authCreateUser(email, password);
+    if(!authData.user?.id) throw new Error(authData.error_description||'Error al crear el usuario en Auth');
+    // 2. Insertar perfil (con el JWT del coordinador actual)
+    await sb('perfiles',{method:'POST',prefer:'return=minimal',body:{id:authData.user.id,nombre,rol}});
+    toast('Usuario '+nombre+' creado','ok');
+    document.getElementById('nu-n').value='';
+    document.getElementById('nu-u').value='';
+    document.getElementById('nu-p').value='';
+    loadUsuarios();
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
 
-    <!-- bootstrap 3 affix -->
-	<script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+let _usuarioAEliminar=null;
 
-    <!-- Meyawo js -->
-    <script src="assets/js/meyawo.js"></script>
+function pedirEliminarUsuario(id,nombre){
+  _usuarioAEliminar={id,nombre};
+  document.getElementById('modal-eliminar-body').textContent=`¿Eliminar a "${nombre}"? Esta acción no se puede deshacer.`;
+  document.getElementById('modal-eliminar-confirm').onclick=confirmarEliminarUsuario;
+  document.getElementById('modal-eliminar').classList.add('show');
+}
 
+function cerrarModalEliminar(){
+  document.getElementById('modal-eliminar').classList.remove('show');
+  _usuarioAEliminar=null;
+}
+
+async function confirmarEliminarUsuario(){
+  if(!_usuarioAEliminar)return;
+  const {id,nombre}=_usuarioAEliminar;
+  cerrarModalEliminar();
+  loader(true);
+  try{
+    // Borrar perfil — auth.users se borra en cascada (on delete cascade en tabla perfiles)
+    // Para borrar el usuario de auth necesitamos service role, así que solo borramos el perfil
+    await sb(`perfiles?id=eq.${id}`,{method:'DELETE'});
+    toast('Usuario '+nombre+' eliminado','ok');
+    loadUsuarios();
+  }catch(e){toast('Error: '+e.message,'err');}
+  finally{loader(false);}
+}
+
+(function(){
+  const s=localStorage.getItem('pu');
+  if(s){
+    try{
+      const saved=JSON.parse(s);
+      if(saved.access_token){
+        _sessionToken=saved.access_token;
+        currentUser={id:saved.id,nombre:saved.nombre,email:saved.email,rol:saved.rol};
+        enterApp();
+        return;
+      }
+    }catch(e){localStorage.removeItem('pu');}
+  }
+  show('screen-login');
+})();
+</script>
 </body>
 </html>
