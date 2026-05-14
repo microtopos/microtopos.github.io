@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#1a3a2a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231a3a2a' width='100' height='100'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='%23fff'>🌳</text></svg>">
 <title>Parques · Mejorada del Campo</title>
 <style>
 :root{--bg:#f2efe8;--surface:#fff;--green:#1a3a2a;--green-mid:#2d6247;--green-lt:#e6efe9;--amber:#b87a1a;--red:#b03030;--red-lt:#fdf0f0;--ink:#1a1a18;--muted:#888880;--border:#ddd8ce;--radius:10px}
@@ -190,6 +191,44 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 .obs-sec-badge{display:inline-block;font-size:.58rem;font-weight:700;padding:.1rem .4rem;border-radius:3px;background:var(--green-lt);color:var(--green-mid);margin-bottom:.2rem}
 .obs-block-text{font-size:.75rem;color:var(--ink);line-height:1.45;margin:0}
 .obs-empty{font-size:.75rem;color:var(--muted);font-style:italic;padding:.3rem 0}
+
+/* ── PLANTILLA IMPRESIÓN ── */
+#print-template{display:none}
+@media print{
+  body>*{display:none!important}
+  #print-template{display:block!important;font-family:Arial,sans-serif;font-size:9pt;color:#000;margin:0;padding:0}
+  .pt-page{width:100%;max-width:100%;padding:8mm 10mm;box-sizing:border-box;page-break-after:always}
+  .pt-page:last-child{page-break-after:auto}
+  .pt-header{display:grid;grid-template-columns:auto 1fr auto;border:1.5px solid #000;margin-bottom:4px}
+  .pt-header-logo{padding:4px 8px;border-right:1px solid #000;font-size:8pt;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .pt-header-center{padding:5px 10px;text-align:center}
+  .pt-header-center h1{font-size:11pt;font-weight:700;text-transform:uppercase;margin:0 0 4px}
+  .pt-header-meta{display:grid;grid-template-columns:1fr 1fr;gap:2px;font-size:8pt;text-align:left}
+  .pt-header-meta span{display:block;border-top:1px solid #aaa;padding:1px 0}
+  .pt-header-hoja{padding:4px 8px;border-left:1px solid #000;font-size:8pt;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;white-space:nowrap}
+  .pt-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:4px}
+  .pt-grid-1{margin-bottom:4px}
+  .pt-box{border:1.5px solid #000;padding:4px 6px}
+  .pt-box-title{font-weight:700;font-size:8.5pt;margin-bottom:3px;border-bottom:1px solid #ccc;padding-bottom:2px}
+  .pt-item{display:flex;align-items:center;justify-content:space-between;padding:1.5px 0;font-size:8pt;border-bottom:1px dotted #ddd}
+  .pt-item:last-of-type{border-bottom:none}
+  .pt-item-label{flex:1}
+  .pt-checks{display:flex;gap:6px;flex-shrink:0;font-size:7.5pt}
+  .pt-check{display:flex;align-items:center;gap:2px;white-space:nowrap}
+  .pt-square{width:10px;height:10px;border:1px solid #000;display:inline-block;flex-shrink:0}
+  .pt-obs{margin-top:3px;font-size:7.5pt}
+  .pt-obs-label{font-weight:600}
+  .pt-obs-line{border-bottom:1px solid #aaa;height:12px;margin-top:2px}
+  .pt-section-title{font-weight:700;font-size:8.5pt;text-transform:uppercase}
+  .pt-note{font-size:6.5pt;color:#555;font-style:italic;margin-bottom:2px}
+  .pt-si-no-header{display:flex;justify-content:flex-end;gap:6px;font-size:7pt;font-weight:700;padding-right:1px;margin-bottom:1px}
+  .pt-table{width:100%;border-collapse:collapse;font-size:7.5pt;margin-bottom:4px}
+  .pt-table th,.pt-table td{border:1px solid #aaa;padding:2px 4px;vertical-align:middle}
+  .pt-table th{background:#e8e8e8;font-weight:700;text-align:center}
+  .pt-table td.center{text-align:center}
+  .pt-pav-opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:3px;font-size:8pt}
+  .pt-pav-opt{display:flex;align-items:center;gap:3px}
+}
 </style>
 </head>
 <body>
@@ -256,6 +295,13 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
       <div class="field"><label>Parque</label><select id="cp-parque"></select></div>
       <div class="field"><label>Fecha</label><input type="date" id="cp-fecha"></div>
       <button class="btn btn-primary" onclick="irAFichaCoordi()">Iniciar revisión →</button>
+      <div style="margin-top:.75rem;border-top:1px solid var(--border);padding-top:.75rem">
+        <div style="font-size:.68rem;color:var(--muted);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Plantilla en papel</div>
+        <button class="btn btn-ghost" onclick="window.print()" style="gap:.4rem">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir ficha en blanco
+        </button>
+      </div>
     </div>
   </div>
 
@@ -380,6 +426,12 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
       <div class="field"><label>Parque</label><select id="rp-parque"></select></div>
       <div class="field"><label>Fecha</label><input type="date" id="rp-fecha"></div>
       <button class="btn btn-primary" onclick="irAFichaRevisor()">Iniciar revisión →</button>
+      <div style="margin-top:.6rem">
+        <button class="btn btn-ghost" onclick="window.print()" style="gap:.4rem;font-size:.8rem">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir ficha en blanco
+        </button>
+      </div>
     </div>
     <div class="sec-lbl">Mis revisiones recientes</div>
     <div id="mis-rev"><div class="empty"><div class="empty-icon">📋</div>Sin revisiones aún</div></div>
@@ -483,6 +535,175 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
     </div>
   </div>
 </div>
+
+<!-- PLANTILLA IMPRESIÓN -->
+<div id="print-template">
+  <div class="pt-page">
+    <!-- CABECERA -->
+    <div class="pt-header">
+      <div class="pt-header-logo">🌳</div>
+      <div class="pt-header-center">
+        <h1>Ficha de revisión de parque infantil</h1>
+        <div class="pt-header-meta">
+          <span><b>NOMBRE PARQUE:</b> ________________________________</span>
+          <span><b>FECHA:</b> ______________________</span>
+          <span style="grid-column:1/3"><b>REVISOR:</b> ____________________________________________</span>
+        </div>
+      </div>
+      <div class="pt-header-hoja">HOJA<br>1</div>
+    </div>
+
+    <!-- S1 + S2 — SÍ = incidencia detectada -->
+    <div class="pt-grid-2">
+      <div class="pt-box">
+        <div class="pt-section-title">1. Limpieza y entorno</div>
+        <div class="pt-note">SÍ = incidencia detectada</div>
+        <div class="pt-si-no-header"><span>SÍ</span><span>NO</span></div>
+        <div class="pt-item"><span class="pt-item-label">1.1 Hay residuos en el entorno (hojas, basura)</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">1.2 Hay residuos peligrosos (cristales, jeringuillas…)</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">1.3 Hay hierba alta o chupones que invaden la zona</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">1.4 El drenaje es deficiente o hay charcos</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">1.5 Otros problemas de limpieza o entorno</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-obs"><span class="pt-obs-label">Observaciones:</span><div class="pt-obs-line"></div><div class="pt-obs-line"></div></div>
+      </div>
+      <div class="pt-box">
+        <div class="pt-section-title">2. Pavimento amortiguador</div>
+        <div class="pt-note">SÍ = incidencia detectada</div>
+        <div class="pt-si-no-header"><span>SÍ</span><span>NO</span></div>
+        <div class="pt-item"><span class="pt-item-label">2.1 Falta material amortiguador en zonas de caída</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">2.2 Hay degradación, hundimientos o pérdida de material</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">2.3 Otros problemas en el pavimento</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-obs" style="margin-top:4px"><span class="pt-obs-label">Tipo de pavimento:</span>
+          <div class="pt-pav-opts">
+            <div class="pt-pav-opt"><div class="pt-square"></div> Caucho</div>
+            <div class="pt-pav-opt"><div class="pt-square"></div> Arena</div>
+            <div class="pt-pav-opt"><div class="pt-square"></div> Solado</div>
+            <div class="pt-pav-opt"><div class="pt-square"></div> Tierra</div>
+            <div class="pt-pav-opt"><div class="pt-square"></div> Otro: _______</div>
+          </div>
+        </div>
+        <div class="pt-obs"><span class="pt-obs-label">Observaciones:</span><div class="pt-obs-line"></div><div class="pt-obs-line"></div></div>
+      </div>
+    </div>
+
+    <!-- S3 + S4 -->
+    <div class="pt-grid-2">
+      <div class="pt-box">
+        <div class="pt-section-title">3. Vallado</div>
+        <div class="pt-note">SÍ = incidencia detectada</div>
+        <div class="pt-si-no-header"><span>SÍ</span><span>NO</span></div>
+        <div class="pt-item"><span class="pt-item-label">3.1 El vallado está inestable o mal anclado</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">3.2 Hay aristas cortantes o bordes peligrosos</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">3.3 Faltan tramos o baldas del vallado</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">3.4 Hay corrosión o degradación visible</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">3.5 Necesita repintar (pintura deteriorada o descascarada)</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">3.6 Otros problemas en el vallado</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-obs"><span class="pt-obs-label">Observaciones:</span><div class="pt-obs-line"></div><div class="pt-obs-line"></div></div>
+      </div>
+      <div class="pt-box">
+        <div class="pt-section-title">4. Cartelería</div>
+        <div class="pt-note">SÍ = incidencia detectada</div>
+        <div class="pt-si-no-header"><span>SÍ</span><span>NO</span></div>
+        <div class="pt-item"><span class="pt-item-label">4.1 La cartelería está inestable o mal anclada</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">4.2 Hay aristas cortantes o bordes peligrosos en los carteles</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">4.3 Falta cartelería obligatoria</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">4.4 Hay corrosión o degradación visible</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">4.5 Hay pintadas o vandalismo en los carteles</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-item"><span class="pt-item-label">4.6 Otros problemas en la cartelería</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+        <div class="pt-obs"><span class="pt-obs-label">Observaciones:</span><div class="pt-obs-line"></div><div class="pt-obs-line"></div></div>
+      </div>
+    </div>
+
+    <!-- S5 -->
+    <div class="pt-grid-1">
+      <div class="pt-box">
+        <div class="pt-section-title">5. Estado general de los juegos</div>
+        <div class="pt-note">SÍ = incidencia detectada</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px">
+          <div>
+            <div class="pt-si-no-header"><span>SÍ</span><span>NO</span></div>
+            <div class="pt-item"><span class="pt-item-label">5.1 Alguna estructura está inestable o mal anclada</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+            <div class="pt-item"><span class="pt-item-label">5.2 Hay aristas cortantes o bordes peligrosos</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+            <div class="pt-item"><span class="pt-item-label">5.3 Hay tornillería expuesta o accesible</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+            <div class="pt-item"><span class="pt-item-label">5.4 Hay riesgo de atrapamiento de cuerpo o ropa</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+          </div>
+          <div>
+            <div class="pt-si-no-header"><span>SÍ</span><span>NO</span></div>
+            <div class="pt-item"><span class="pt-item-label">5.5 Hay deterioro que supone un peligro real</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+            <div class="pt-item"><span class="pt-item-label">5.6 Hay pintadas o vandalismo en los juegos</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+            <div class="pt-item"><span class="pt-item-label">5.7 Otros problemas en los juegos</span><div class="pt-checks"><div class="pt-square"></div><div class="pt-square"></div></div></div>
+          </div>
+        </div>
+        <div class="pt-obs"><span class="pt-obs-label">Observaciones:</span><div class="pt-obs-line"></div><div class="pt-obs-line"></div></div>
+      </div>
+    </div>
+
+    <!-- S6 — textos exactos de buildEquipos() -->
+    <div class="pt-grid-1">
+      <div class="pt-box">
+        <div class="pt-section-title" style="margin-bottom:3px">6. Revisión por equipo</div>
+        <div class="pt-note" style="margin-bottom:3px">SÍ = problema detectado</div>
+        <table class="pt-table">
+          <thead>
+            <tr>
+              <th>Equipo</th>
+              <th style="width:42px">¿Existe?</th>
+              <th>Incidencia</th>
+              <th style="width:22px">SÍ</th>
+              <th style="width:22px">NO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td rowspan="3"><b>6.1 Columpios</b></td><td rowspan="3" class="center"><div class="pt-square" style="margin:auto 0"></div><div style="font-size:6pt">Existe</div></td><td>Asiento en mal estado</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td>Cadenas dañadas o flojas</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td>Ganchos/poleas defectuosos</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td rowspan="3"><b>6.2 Toboganes</b></td><td rowspan="3" class="center"><div class="pt-square" style="margin:auto 0"></div><div style="font-size:6pt">Existe</div></td><td>Zona de inicio dañada</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td>Superficie de deslizamiento dañada</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td>Zona de salida inadecuada</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td rowspan="3"><b>6.3 Juegos de balanceo</b></td><td rowspan="3" class="center"><div class="pt-square" style="margin:auto 0"></div><div style="font-size:6pt">Existe</div></td><td>Asientos dañados</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td>Inestabilidad detectada</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td>Anclaje o muelle defectuoso</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td rowspan="2"><b>6.4 Juegos rotatorios</b></td><td rowspan="2" class="center"><div class="pt-square" style="margin:auto 0"></div><div style="font-size:6pt">Existe</div></td><td>Ejes dañados o sin protección</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td>Protecciones ausentes o deterioradas</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td rowspan="2"><b>6.5 Redes / escalada</b></td><td rowspan="2" class="center"><div class="pt-square" style="margin:auto 0"></div><div style="font-size:6pt">Existe</div></td><td>Red destensada o dañada</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td>Anclajes flojos o deteriorados</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td rowspan="2"><b>6.6 Otros (tirolina, casita, túnel…)</b></td><td rowspan="2" class="center"><div class="pt-square" style="margin:auto 0"></div><div style="font-size:6pt">Existe</div></td><td>Anclaje defectuoso</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+            <tr><td>Inestabilidad detectada</td><td class="center"><div class="pt-square" style="margin:auto"></div></td><td class="center"><div class="pt-square" style="margin:auto"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- S7 + S8 -->
+    <div class="pt-grid-2">
+      <div class="pt-box">
+        <div class="pt-section-title">7. Valoración global del riesgo</div>
+        <div class="pt-note">Marca solo una opción</div>
+        <div style="font-size:7.5pt;margin-top:3px">
+          <div class="pt-item"><span class="pt-item-label">🔴 Riesgo grave — requiere cierre o precintado inmediato</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+          <div class="pt-item"><span class="pt-item-label">🟠 Riesgo potencial — requiere reparación urgente</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+          <div class="pt-item"><span class="pt-item-label">🟢 Sin riesgo inmediato — programar mantenimiento</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+        </div>
+        <div class="pt-obs"><span class="pt-obs-label">Observaciones:</span><div class="pt-obs-line"></div><div class="pt-obs-line"></div><div class="pt-obs-line"></div></div>
+      </div>
+      <div class="pt-box">
+        <div class="pt-section-title">8. Medidas adoptadas</div>
+        <div class="pt-note">Marca todas las que apliquen</div>
+        <div style="font-size:7.5pt;margin-top:3px">
+          <div class="pt-item"><span class="pt-item-label">Ninguna medida adoptada</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+          <div class="pt-item"><span class="pt-item-label">Reparación realizada en el momento</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+          <div class="pt-item"><span class="pt-item-label">Reparación programada para próximas fechas</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+          <div class="pt-item"><span class="pt-item-label">Zona o equipo precintado</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+          <div class="pt-item"><span class="pt-item-label">Equipo retirado</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+          <div class="pt-item"><span class="pt-item-label">Solicitadas piezas de repuesto</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+          <div class="pt-item"><span class="pt-item-label">Otras medidas (detallar en observaciones)</span><div class="pt-checks"><div class="pt-square"></div></div></div>
+        </div>
+        <div class="pt-obs"><span class="pt-obs-label">Observaciones:</span><div class="pt-obs-line"></div><div class="pt-obs-line"></div><div class="pt-obs-line"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
 const SUPABASE_URL='https://kiokyuxpyockyixjlrfa.supabase.co';
