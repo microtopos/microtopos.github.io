@@ -52,7 +52,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 .parque-row:first-child{border-top:1px solid var(--border)}
 .parque-row:hover{background:#f8f6f0}
 .p-dot{width:9px;height:9px;border-radius:50%;background:var(--border);flex-shrink:0}
-.p-dot.grave{background:var(--red)}.p-dot.urgente{background:var(--amber)}.p-dot.ok{background:#3d9e5f}
+.p-dot.grave{background:var(--red)}.p-dot.urgente{background:var(--amber)}.p-dot.ok{background:#3d9e5f}.p-dot.asignado{background:var(--amber);opacity:.5}
 .p-name{font-size:.83rem;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .p-meta{font-size:.65rem;color:var(--muted)}
 .p-arrow{color:var(--border);font-size:.85rem}
@@ -711,7 +711,7 @@ const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 
 let PARQUES=[]; // Poblado dinámicamente desde Supabase
 
-let currentUser=null,allRev=[],filtroActivo='todos',fichaData={},fichaReturn='revisor',sortOrder='recientes';
+let currentUser=null,allRev=[],allAsig=[],filtroActivo='todos',fichaData={},fichaReturn='revisor',sortOrder='recientes';
 
 async function sb(path,opts={}){
   const isPatch=opts.method==='PATCH';
@@ -807,13 +807,14 @@ function switchPanel(panel,el){
 async function loadDashboard(){
   loader(true);
   try{
-    // Cargar parques desde Supabase y revisiones
-    const [parquesData, revData]=await Promise.all([
+    const [parquesData, revData, asigData]=await Promise.all([
       sb('parques?select=*&order=nombre.asc'),
-      sb('revisiones?select=*&order=created_at.desc')
+      sb('revisiones?select=*&order=created_at.desc'),
+      sb('asignaciones?completada=eq.false&select=*')
     ]);
     PARQUES=(parquesData||[]).map(p=>p.nombre);
     allRev=revData||[];
+    allAsig=asigData||[];
     renderDashboard();
   }catch(e){toast('Error: '+e.message,'err');}
   finally{loader(false);}
@@ -883,14 +884,19 @@ function renderDashboard(){
     return;
   }
   const etiq={grave:'⚠ Grave',urgente:'🔶 Urgente',ok:'✓ Correcto','sin-revision':'○ Sin revisar'};
-  // Store lista in a module-level map so the click handler can retrieve by index
   window._dashLista=lista;
   list.innerHTML=lista.map((p,i)=>{
     const est=estadoP(p);const rev=allRev.find(r=>r.parque===p);
+    const asig=allAsig.find(a=>a.parque===p);
     const nombre=query?resaltarQuery(p,query):p;
+    let meta;
+    if(rev) meta=`${fmtF(rev.fecha)} · ${etiq[est]}`;
+    else if(asig) meta=`<span style="color:var(--amber);font-weight:600">📋 Asignado a ${asig.revisor_nombre||'revisor'}</span>`;
+    else meta='Sin revisiones · ○ Sin revisar';
+    const dotClass=est+(asig&&est==='sin-revision'?' asignado':'');
     return`<div class="parque-row" onclick="verDetalle(window._dashLista[${i}])">
-      <div class="p-dot ${est}"></div>
-      <div style="flex:1;min-width:0"><div class="p-name">${nombre}</div><div class="p-meta">${rev?fmtF(rev.fecha):'Sin revisiones'} · ${etiq[est]}</div></div>
+      <div class="p-dot ${dotClass}"></div>
+      <div style="flex:1;min-width:0"><div class="p-name">${nombre}</div><div class="p-meta">${meta}</div></div>
       <div class="p-arrow">›</div>
     </div>`;
   }).join('');
